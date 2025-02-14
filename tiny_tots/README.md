@@ -1,4 +1,4 @@
-# tiny_tots
+# TINY TOTS
 
 A new Flutter project.
 
