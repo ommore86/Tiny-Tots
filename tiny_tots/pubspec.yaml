@@ -18,6 +18,8 @@ dependencies:
 
   # Cupertino Icons for iOS-style icons
   cupertino_icons: ^1.0.8
+  firebase_core: ^3.11.0
+  firebase_auth: ^5.4.2
 
 # Development dependencies (used for testing and linting)
 dev_dependencies:
@@ -34,7 +36,7 @@ flutter:
 
   # Add assets (images, fonts, etc.)
   assets:
-    - assets/splash_logo.jpg
+    - assets/splash_logo.png
 
   # To add custom fonts, uncomment and configure:
   # fonts:

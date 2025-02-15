@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "863637634720",
+    "project_id": "tiny-tots-nursery",
+    "storage_bucket": "tiny-tots-nursery.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863637634720:android:61a13ce789350cc63b13c5",
+        "android_client_info": {
+          "package_name": "com.example.tiny_tots"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD79bEZGmmdjDuGo-F9mfTFIeTusZ4Z8pA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
