@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        google() // ✅ Ensures dependencies are downloaded from Google
+        mavenCentral() // ✅ Ensures dependencies are downloaded from Maven
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.1.1") // Ensure this is correct
+        classpath("com.google.gms:google-services:4.3.10") // ✅ Correct placement
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -15,11 +27,6 @@ subprojects {
 
 subprojects {
     project.evaluationDependsOn(":app")
-}
-
-// 🔹 Add Firebase Plugin here
-dependencies {
-    classpath("com.google.gms:google-services:4.3.10") // ✅ Firebase Plugin
 }
 
 tasks.register<Delete>("clean") {
