@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   final String userRole;
@@ -57,14 +56,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  void _shareApp() {
-    Share.share("Check out this amazing app for kids: Tiny Tots! Download now!");
-  }
-
-  void _contactDeveloper() {
-    Share.share("Contact Developer: support@tinytots.com");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,20 +109,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
 
               // Share App Option
-              _buildListTile(
-                title: "Share App",
-                subtitle: "Invite friends to use Tiny Tots",
-                icon: Icons.share,
-                onTap: _shareApp,
-              ),
 
               // Contact Developer Option
-              _buildListTile(
-                title: "Contact Developer",
-                subtitle: "Reach out for support",
-                icon: Icons.email,
-                onTap: _contactDeveloper,
-              ),
             ],
           ),
         ),
