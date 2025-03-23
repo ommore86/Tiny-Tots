@@ -25,11 +25,18 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset(
-          "assets/splash_logo.png",
-          width: MediaQuery.of(context).size.width, // Full width
-          height: MediaQuery.of(context).size.height, // Full height
-          fit: BoxFit.cover, // Cover full screen
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double imageWidth = constraints.maxWidth * 0.8; // 80% of screen width
+            double imageHeight = constraints.maxHeight * 0.6; // 60% of screen height
+
+            return Image.asset(
+              "assets/splash_logo.png",
+              width: imageWidth,
+              height: imageHeight,
+              fit: BoxFit.contain, // Maintain aspect ratio
+            );
+          },
         ),
       ),
     );
