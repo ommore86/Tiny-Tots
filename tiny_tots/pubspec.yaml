@@ -20,6 +20,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_core: ^3.11.0
   firebase_auth: ^5.4.2
+  audioplayers: ^6.4.0
 
 # Development dependencies (used for testing and linting)
 dev_dependencies:
@@ -37,6 +38,75 @@ flutter:
   # Add assets (images, fonts, etc.)
   assets:
     - assets/splash_logo.png
+
+    - assets/images/alphabets.png
+    - assets/images/numbers.png
+    - assets/images/shapes.png
+    - assets/images/colors.png
+    - assets/images/animals.png
+    - assets/images/birds.png
+    - assets/images/poems.png
+    - assets/images/exercise.png
+    - assets/images/games.png
+    - assets/images/puzzles.png
+    - assets/images/media.png
+
+ # add soundependency_overrides:
+    - assets/sounds/a.mp3
+    - assets/sounds/b.mp3
+    - assets/sounds/c.mp3
+    - assets/sounds/d.mp3
+    - assets/sounds/e.mp3
+    - assets/sounds/f.mp3
+    - assets/sounds/g.mp3
+    - assets/sounds/h.mp3
+    - assets/sounds/i.mp3
+    - assets/sounds/j.mp3
+    - assets/sounds/k.mp3
+    - assets/sounds/l.mp3
+    - assets/sounds/m.mp3
+    - assets/sounds/n.mp3
+    - assets/sounds/o.mp3
+    - assets/sounds/p.mp3
+    - assets/sounds/q.mp3
+    - assets/sounds/r.mp3
+    - assets/sounds/s.mp3
+    - assets/sounds/t.mp3
+    - assets/sounds/u.mp3
+    - assets/sounds/v.mp3
+    - assets/sounds/w.mp3
+    - assets/sounds/x.mp3
+    - assets/sounds/y.mp3
+    - assets/sounds/z.mp3
+
+    # Add images for each alphabet letter
+    - assets/images/Letter_A.png
+    - assets/images/Letter_B.png
+    - assets/images/Letter_C.png
+    - assets/images/Letter_D.png
+    - assets/images/Letter_E.png
+    - assets/images/Letter_F.png
+    - assets/images/Letter_G.png
+    - assets/images/Letter_H.png
+    - assets/images/Letter_I.png
+    - assets/images/Letter_J.png
+    - assets/images/Letter_K.png
+    - assets/images/Letter_L.png
+    - assets/images/Letter_M.png
+    - assets/images/Letter_N.png
+    - assets/images/Letter_O.png
+    - assets/images/Letter_P.png
+    - assets/images/Letter_Q.png
+    - assets/images/Letter_R.png
+    - assets/images/Letter_S.png
+    - assets/images/Letter_T.png
+    - assets/images/Letter_U.png
+    - assets/images/Letter_V.png
+    - assets/images/Letter_W.png
+    - assets/images/Letter_X.png
+    - assets/images/Letter_Y.png
+    - assets/images/Letter_Z.png
+
 
   # To add custom fonts, uncomment and configure:
   # fonts:
