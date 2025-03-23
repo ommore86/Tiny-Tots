@@ -106,6 +106,27 @@ flutter:
     - assets/images/Letter_X.png
     - assets/images/Letter_Y.png
     - assets/images/Letter_Z.png
+  # numbers
+    - assets/numbers/1.png
+    - assets/numbers/2.png
+    - assets/numbers/3.png
+    - assets/numbers/4.png
+    - assets/numbers/5.png
+    - assets/numbers/6.png
+    - assets/numbers/7.png
+    - assets/numbers/8.png
+    - assets/numbers/9.png
+    - assets/numbers/10.png
+  # shapes
+    - assets/images/shapes/circle.png
+    - assets/images/shapes/diamond.png
+    - assets/images/shapes/hexagon.png
+    - assets/images/shapes/oval.png
+    - assets/images/shapes/pentagon.png
+    - assets/images/shapes/rectangle.png
+    - assets/images/shapes/square.png
+    - assets/images/shapes/star.png
+    - assets/images/shapes/triangle.png
 
 
   # To add custom fonts, uncomment and configure:

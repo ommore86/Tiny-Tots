@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.example.tiny_tots"  // ✅ Keep your correct app namespace
-    compileSdk = 34  // ✅ Use actual SDK version
+    compileSdk = 35  // ✅ Use actual SDK version
 
     defaultConfig {
         applicationId = "com.example.tiny_tots"  // ✅ Package name
         minSdk = 23  // ✅ Minimum supported Android version
-        targetSdk = 34  // ✅ Latest Android target
+        targetSdk = 35  // ✅ Latest Android target
         versionCode = 1  // ✅ Set your app version
         versionName = "1.0"
     }

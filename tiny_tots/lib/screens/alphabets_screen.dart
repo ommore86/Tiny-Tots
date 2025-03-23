@@ -27,13 +27,13 @@ class AlphabetsScreen extends StatelessWidget {
         ),
         itemCount: alphabets.length,
         itemBuilder: (context, index) {
-          return _buildAlphabetCard(context, alphabets[index]);
+          return _buildAlphabetCard(context, alphabets[index], index);
         },
       ),
     );
   }
 
-  Widget _buildAlphabetCard(BuildContext context, String letter) {
+  Widget _buildAlphabetCard(BuildContext context, String letter, int index) {
     return Card(
       elevation: 5,
       color: Colors.pink[100],
@@ -45,7 +45,7 @@ class AlphabetsScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AlphabetDetailScreen(letter: letter),
+              builder: (context) => AlphabetDetailScreen(letter: letter, index: index),
             ),
           );
         },
@@ -62,9 +62,15 @@ class AlphabetsScreen extends StatelessWidget {
 
 class AlphabetDetailScreen extends StatelessWidget {
   final String letter;
+  final int index;
   final AudioPlayer _audioPlayer = AudioPlayer();
 
-  AlphabetDetailScreen({Key? key, required this.letter}) : super(key: key);
+  AlphabetDetailScreen({Key? key, required this.letter, required this.index}) : super(key: key);
+
+  final List<String> alphabets = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+  ];
 
   final Map<String, String> alphabetExamples = {
     'A': 'Apple', 'B': 'Ball', 'C': 'Cat', 'D': 'Dog', 'E': 'Elephant',
@@ -137,50 +143,79 @@ class AlphabetDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Details for $letter")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              letter,
-              style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
-            ),
-            SizedBox(height: 20),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            letter,
+            style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
+          ),
+          SizedBox(height: 20),
 
-            Image.asset(
-              alphabetImages[letter]!,
-              width: 150,
-              height: 150,
-              fit: BoxFit.contain,
-            ),
-            SizedBox(height: 20),
+          Image.asset(
+            alphabetImages[letter]!,
+            width: 150,
+            height: 150,
+            fit: BoxFit.contain,
+          ),
+          SizedBox(height: 20),
 
-            Text(
-              '${alphabetExamples[letter]} is for $letter',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
+          Text(
+            '${alphabetExamples[letter]} is for $letter',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
 
-            ElevatedButton(
-              onPressed: () => _playSound(letter),
-              child: Text("Play Sound"),
-            ),
-          ],
-        ),
+          ElevatedButton(
+            onPressed: () => _playSound(letter),
+            child: Text("Play Sound"),
+          ),
+
+          SizedBox(height: 30),
+
+          // ✅ Previous & Next Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (index > 0)
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AlphabetDetailScreen(
+                          letter: alphabets[index - 1], 
+                          index: index - 1,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text("Previous"),
+                ),
+              
+              if (index < alphabets.length - 1)
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AlphabetDetailScreen(
+                          letter: alphabets[index + 1], 
+                          index: index + 1,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text("Next"),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
   Future<void> _playSound(String letter) async {
-  final player = AudioPlayer();
-  String? soundPath = alphabetSounds[letter];
-
-  if (soundPath != null) {
-    try {
-      await player.play(AssetSource(soundPath)); // ✅ Correct way to play
-    } catch (e) {
-      print("Error playing sound: $e"); // Debugging error
-    }
+    await _audioPlayer.play(AssetSource(alphabetSounds[letter]!));
   }
-}
 }
