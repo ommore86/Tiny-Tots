@@ -10,7 +10,6 @@ import 'poems_screen.dart';
 import 'exercises_screen.dart';
 import 'games_screen.dart';
 import 'puzzles_screen.dart';
-import 'media_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String userRole = "Student"; // Change to "Parent" or "Teacher" accordingly
@@ -47,7 +46,6 @@ class HomeScreen extends StatelessWidget {
           _buildMenuItem(context, "Exercises", "assets/images/exercise.png", ExercisesScreen()),
           _buildMenuItem(context, "Games", "assets/images/games.png", GamesScreen()),
           _buildMenuItem(context, "Puzzles", "assets/images/puzzles.png", PuzzlesScreen()),
-          _buildMenuItem(context, "Media", "assets/images/media.png", MediaScreen()),
         ],
       ),
     );

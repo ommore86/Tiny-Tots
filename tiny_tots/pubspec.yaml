@@ -129,6 +129,9 @@ flutter:
     - assets/images/shapes/star.png
     - assets/images/shapes/triangle.png
 
+  # poems
+    - assets/sounds/poems/twinkle.ogg
+
 
   # To add custom fonts, uncomment and configure:
   # fonts:

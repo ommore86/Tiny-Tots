@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tiny_tots/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'screens/home_screen.dart'; // Ensure this exists
 
 class ParentLogin extends StatefulWidget {
   @override
@@ -7,26 +9,50 @@ class ParentLogin extends StatefulWidget {
 }
 
 class _ParentLoginState extends State<ParentLogin> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void _login() {
-  String email = emailController.text.trim();
-  String password = passwordController.text.trim();
+  Future<void> _login() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-  // Mock authentication (Replace this with actual authentication logic)
-  if (email.isNotEmpty && password.isNotEmpty) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to HomeScreen
-    );
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Invalid email or password")),
-    );
-  }
-  }
+      DocumentSnapshot userDoc = await _firestore
+          .collection("users")
+          .doc(userCredential.user!.uid)
+          .get();
 
+      if (userDoc.exists) {
+        String role = userDoc["role"];
+        
+        if (role == "Parent") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
+        } else {
+          // 🚫 Not a Parent, Show Error
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Access Denied: Only Parents can log in!")),
+          );
+          await _auth.signOut(); // Log them out
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("User not found in database!")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login Failed: ${e.toString()}")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,26 +74,10 @@ class _ParentLoginState extends State<ParentLogin> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _login, // Call the login function
+              onPressed: _login, // Call login function
               child: Text("Login"),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// ✅ Blank Screen (Appears After Successful Login)
-class BlankScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Text(
-          "Welcome!",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
     );
