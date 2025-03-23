@@ -130,6 +130,30 @@ flutter:
     - assets/images/shapes/star.png
     - assets/images/shapes/triangle.png
 
+  # animals
+    - assets/images/animals/bear.png
+    - assets/images/animals/cat.png
+    - assets/images/animals/dog.png
+    - assets/images/animals/elephant.png
+    - assets/images/animals/giraffe.png
+    - assets/images/animals/lion.png
+    - assets/images/animals/monkey.png
+    - assets/images/animals/rabbit.png
+    - assets/images/animals/tiger.png
+    - assets/images/animals/zebra.png
+
+  # birds
+    - assets/images/birds/crow.png
+    - assets/images/birds/duck.png
+    - assets/images/birds/eagle.png
+    - assets/images/birds/owl.png
+    - assets/images/birds/parrot.png
+    - assets/images/birds/peacock.png
+    - assets/images/birds/penguin.png
+    - assets/images/birds/pigeon.png
+    - assets/images/birds/sparrow.png
+    - assets/images/birds/swan.png
+
   # poems
     - assets/sounds/poems/twinkle.ogg
 
