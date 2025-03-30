@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -9,50 +10,56 @@ void main() {
 }
 
 class AlphabetsScreen extends StatelessWidget {
-  final List<String> alphabets = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-  ];
+  final List<String> alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Alphabets")),
-      body: GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4, 
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+      appBar: AppBar(
+        title: Text("Learn Alphabets", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
+      ),
+      backgroundColor: Colors.pink[50],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4, 
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: alphabets.length,
+          itemBuilder: (context, index) {
+            return _buildAlphabetCard(context, alphabets[index], index);
+          },
         ),
-        itemCount: alphabets.length,
-        itemBuilder: (context, index) {
-          return _buildAlphabetCard(context, alphabets[index], index);
-        },
       ),
     );
   }
 
   Widget _buildAlphabetCard(BuildContext context, String letter, int index) {
-    return Card(
-      elevation: 5,
-      color: Colors.pink[100],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AlphabetDetailScreen(letter: letter, index: index),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AlphabetDetailScreen(letter: letter, index: index),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [Colors.pinkAccent, Colors.orangeAccent]),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: Text(
+              letter,
+              style: GoogleFonts.fredoka(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-          );
-        },
-        child: Center(
-          child: Text(
-            letter,
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
       ),
@@ -67,10 +74,7 @@ class AlphabetDetailScreen extends StatelessWidget {
 
   AlphabetDetailScreen({Key? key, required this.letter, required this.index}) : super(key: key);
 
-  final List<String> alphabets = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-  ];
+  final List<String> alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   final Map<String, String> alphabetExamples = {
     'A': 'Apple', 'B': 'Ball', 'C': 'Cat', 'D': 'Dog', 'E': 'Elephant',
@@ -82,131 +86,115 @@ class AlphabetDetailScreen extends StatelessWidget {
   };
 
   final Map<String, String> alphabetImages = {
-    'A': 'assets/images/Letter_A.png',
-    'B': 'assets/images/Letter_B.png',
-    'C': 'assets/images/Letter_C.png',
-    'D': 'assets/images/Letter_D.png',
-    'E': 'assets/images/Letter_E.png',
-    'F': 'assets/images/Letter_F.png',
-    'G': 'assets/images/Letter_G.png',
-    'H': 'assets/images/Letter_H.png',
-    'I': 'assets/images/Letter_I.png',
-    'J': 'assets/images/Letter_J.png',
-    'K': 'assets/images/Letter_K.png',
-    'L': 'assets/images/Letter_L.png',
-    'M': 'assets/images/Letter_M.png',
-    'N': 'assets/images/Letter_N.png',
-    'O': 'assets/images/Letter_O.png',
-    'P': 'assets/images/Letter_P.png',
-    'Q': 'assets/images/Letter_Q.png',
-    'R': 'assets/images/Letter_R.png',
-    'S': 'assets/images/Letter_S.png',
-    'T': 'assets/images/Letter_T.png',
-    'U': 'assets/images/Letter_U.png',
-    'V': 'assets/images/Letter_V.png',
-    'W': 'assets/images/Letter_W.png',
-    'X': 'assets/images/Letter_X.png',
-    'Y': 'assets/images/Letter_Y.png',
-    'Z': 'assets/images/Letter_Z.png',
+    for (var letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
+      letter: 'assets/images/Letter_$letter.png'
   };
 
   final Map<String, String> alphabetSounds = {
-    'A': 'assets/sounds/a.mp3',
-    'B': 'assets/sounds/b.mp3',
-    'C': 'assets/sounds/c.mp3',
-    'D': 'assets/sounds/d.mp3',
-    'E': 'assets/sounds/e.mp3',
-    'F': 'assets/sounds/f.mp3',
-    'G': 'assets/sounds/g.mp3',
-    'H': 'assets/sounds/h.mp3',
-    'I': 'assets/sounds/i.mp3',
-    'J': 'assets/sounds/j.mp3',
-    'K': 'assets/sounds/k.mp3',
-    'L': 'assets/sounds/l.mp3',
-    'M': 'assets/sounds/m.mp3',
-    'N': 'assets/sounds/n.mp3',
-    'O': 'assets/sounds/o.mp3',
-    'P': 'assets/sounds/p.mp3',
-    'Q': 'assets/sounds/q.mp3',
-    'R': 'assets/sounds/r.mp3',
-    'S': 'assets/sounds/s.mp3',
-    'T': 'assets/sounds/t.mp3',
-    'U': 'assets/sounds/u.mp3',
-    'V': 'assets/sounds/v.mp3',
-    'W': 'assets/sounds/w.mp3',
-    'X': 'assets/sounds/x.mp3',
-    'Y': 'assets/sounds/y.mp3',
-    'Z': 'assets/sounds/z.mp3',
+    for (var letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
+      letter: 'assets/sounds/$letter.mp3'
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Details for $letter")),
+      backgroundColor: Colors.pink[50],
+      appBar: AppBar(
+        title: Text("Letter $letter", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Letter Display
           Text(
             letter,
-            style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
+            style: GoogleFonts.fredoka(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
           ),
           SizedBox(height: 20),
 
-          Image.asset(
-            alphabetImages[letter]!,
-            width: 150,
-            height: 150,
-            fit: BoxFit.contain,
+          // Letter Image
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              // shape: BoxShape.circle,
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+            ),
+            child: Image.asset(
+              alphabetImages[letter]!,
+              width: 150,
+              height: 150,
+              fit: BoxFit.contain,
+            ),
           ),
           SizedBox(height: 20),
 
+          // Example Text
           Text(
             '${alphabetExamples[letter]} is for $letter',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
           ),
           SizedBox(height: 20),
 
+          // Play Sound Button
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+              backgroundColor: Colors.pinkAccent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            ),
             onPressed: () => _playSound(letter),
-            child: Text("Play Sound"),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.volume_up, color: Colors.white),
+                SizedBox(width: 8),
+                Text("Play Sound", style: GoogleFonts.poppins(fontSize: 18, color: Colors.white)),
+              ],
+            ),
           ),
 
           SizedBox(height: 30),
 
-          // ✅ Previous & Next Buttons
+          // Navigation Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               if (index > 0)
-                ElevatedButton(
+                FloatingActionButton(
+                  heroTag: "prev",
+                  backgroundColor: Colors.pinkAccent,
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AlphabetDetailScreen(
-                          letter: alphabets[index - 1], 
+                          letter: alphabets[index - 1],
                           index: index - 1,
                         ),
                       ),
                     );
                   },
-                  child: Text("Previous"),
+                  child: Icon(Icons.arrow_back, color: Colors.white),
                 ),
-              
+
               if (index < alphabets.length - 1)
-                ElevatedButton(
+                FloatingActionButton(
+                  heroTag: "next",
+                  backgroundColor: Colors.pinkAccent,
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AlphabetDetailScreen(
-                          letter: alphabets[index + 1], 
+                          letter: alphabets[index + 1],
                           index: index + 1,
                         ),
                       ),
                     );
                   },
-                  child: Text("Next"),
+                  child: Icon(Icons.arrow_forward, color: Colors.white),
                 ),
             ],
           ),
