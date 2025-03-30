@@ -24,27 +24,40 @@ class BirdsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Birds")),
-      body: GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+      appBar: AppBar(
+        title: Text("Birds"),
+        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade200, Colors.lightBlue.shade100],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
         ),
-        itemCount: birdsList.length,
-        itemBuilder: (context, index) {
-          return _buildBirdCard(context, birdsList[index], index);
-        },
+        child: GridView.builder(
+          padding: EdgeInsets.all(10),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: birdsList.length,
+          itemBuilder: (context, index) {
+            return _buildBirdCard(context, birdsList[index], index);
+          },
+        ),
       ),
     );
   }
 
   Widget _buildBirdCard(BuildContext context, Map<String, String> birdData, int index) {
     return Card(
-      elevation: 5,
+      elevation: 8,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
         onTap: () {
@@ -61,11 +74,14 @@ class BirdsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(birdData['image']!, width: 100, height: 100),
+            Hero(
+              tag: birdData['name']!,
+              child: Image.asset(birdData['image']!, width: 100, height: 100),
+            ),
             SizedBox(height: 10),
             Text(
               birdData['name']!,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.blueGrey),
             ),
           ],
         ),
@@ -85,56 +101,72 @@ class BirdDetailScreen extends StatelessWidget {
     Map<String, String> birdData = birdsList[currentIndex];
 
     return Scaffold(
-      appBar: AppBar(title: Text(birdData['name']!)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(birdData['image']!, width: 200, height: 200),
-            SizedBox(height: 20),
-            Text(
-              birdData['name']!,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 40),
-
-            // Buttons for navigation
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                if (currentIndex > 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BirdDetailScreen(
-                            birdsList: birdsList,
-                            currentIndex: currentIndex - 1,
+      appBar: AppBar(
+        title: Text(birdData['name']!),
+        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade200, Colors.lightBlue.shade100],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                tag: birdData['name']!,
+                child: Image.asset(birdData['image']!, width: 250, height: 250),
+              ),
+              SizedBox(height: 20),
+              Text(
+                birdData['name']!,
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blueAccent),
+              ),
+              SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (currentIndex > 0)
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BirdDetailScreen(
+                              birdsList: birdsList,
+                              currentIndex: currentIndex - 1,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: Text("Previous"),
-                  ),
-                if (currentIndex < birdsList.length - 1)
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BirdDetailScreen(
-                            birdsList: birdsList,
-                            currentIndex: currentIndex + 1,
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back),
+                      label: Text("Previous"),
+                    ),
+                  if (currentIndex < birdsList.length - 1)
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BirdDetailScreen(
+                              birdsList: birdsList,
+                              currentIndex: currentIndex + 1,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: Text("Next"),
-                  ),
-              ],
-            ),
-          ],
+                        );
+                      },
+                      icon: Icon(Icons.arrow_forward),
+                      label: Text("Next"),
+                    ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

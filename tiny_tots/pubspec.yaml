@@ -145,6 +145,7 @@ flutter:
     - assets/images/animals/rabbit.png
     - assets/images/animals/tiger.png
     - assets/images/animals/zebra.png
+    - assets/images/animals/fish.png
 
   # birds
     - assets/images/birds/crow.png
@@ -158,7 +159,43 @@ flutter:
     - assets/images/birds/sparrow.png
     - assets/images/birds/swan.png
 
-  # poems
+  # colors
+    - assets/images/colors/black.png
+    - assets/images/colors/blue.png
+    - assets/images/colors/brown.png
+    - assets/images/colors/green.png
+    - assets/images/colors/orange.png
+    - assets/images/colors/pink.png
+    - assets/images/colors/purple.png
+    - assets/images/colors/red.png
+    - assets/images/colors/yellow.png
+    - assets/images/colors/white.png
+
+  # foods
+    - assets/images/foods/bread.png
+    - assets/images/foods/burger.png
+    - assets/images/foods/cake.png
+    - assets/images/foods/cookie.png
+    - assets/images/foods/donut.png
+    - assets/images/foods/icecream.png
+    - assets/images/foods/pasta.png
+    - assets/images/foods/pizza.png
+    - assets/images/foods/sandwich.png
+    - assets/images/foods/soup.png
+
+  # fruits
+    - assets/images/fruits/apple.png
+    - assets/images/fruits/banana.png
+    - assets/images/fruits/cherry.png
+    - assets/images/fruits/grape.png
+    - assets/images/fruits/kiwi.png
+    - assets/images/fruits/mango.png
+    - assets/images/fruits/orange.png
+    - assets/images/fruits/pear.png
+    - assets/images/fruits/pineapple.png
+    - assets/images/fruits/strawberry.png
+    
+    # poems
     - assets/sounds/poems/twinkle.ogg
 
 

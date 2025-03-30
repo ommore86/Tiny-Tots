@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,42 +16,51 @@ class ShapesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Shapes")),
-      body: GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, 
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+      appBar: AppBar(
+        title: Text("Learn Shapes", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
+      ),
+      backgroundColor: Colors.pink[50],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: shapes.length,
+          itemBuilder: (context, index) {
+            return _buildShapeCard(context, shapes[index], index);
+          },
         ),
-        itemCount: shapes.length,
-        itemBuilder: (context, index) {
-          return _buildShapeCard(context, shapes[index], index);
-        },
       ),
     );
   }
 
   Widget _buildShapeCard(BuildContext context, String shape, int index) {
-    return Card(
-      elevation: 5,
-      color: Colors.pink[100],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ShapeDetailScreen(shape: shape, index: index),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShapeDetailScreen(shape: shape, index: index),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [Colors.pinkAccent, Colors.orangeAccent]),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: Text(
+              shape,
+              style: GoogleFonts.fredoka(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-          );
-        },
-        child: Center(
-          child: Text(
-            shape,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
       ),
@@ -83,58 +93,72 @@ class ShapeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Details for $shape")),
+      backgroundColor: Colors.pink[50],
+      appBar: AppBar(
+        title: Text(shape, style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             shape,
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.pink),
+            style: GoogleFonts.fredoka(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.pink),
           ),
           SizedBox(height: 20),
 
-          Image.asset(
-            shapeImages[shape] ?? 'assets/images/shapes/circle.png',
-            width: 150,
-            height: 150,
-            fit: BoxFit.contain,
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+            ),
+            child: Image.asset(
+              shapeImages[shape] ?? 'assets/images/shapes/circle.png',
+              width: 150,
+              height: 150,
+              fit: BoxFit.contain,
+            ),
           ),
           SizedBox(height: 20),
 
-          // ✅ Next & Previous Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               if (index > 0)
-                ElevatedButton(
+                FloatingActionButton(
+                  heroTag: "prev",
+                  backgroundColor: Colors.pinkAccent,
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ShapeDetailScreen(
-                          shape: shapes[index - 1], 
+                          shape: shapes[index - 1],
                           index: index - 1,
                         ),
                       ),
                     );
                   },
-                  child: Text("Previous"),
+                  child: Icon(Icons.arrow_back, color: Colors.white),
                 ),
-              
+
               if (index < shapes.length - 1)
-                ElevatedButton(
+                FloatingActionButton(
+                  heroTag: "next",
+                  backgroundColor: Colors.pinkAccent,
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ShapeDetailScreen(
-                          shape: shapes[index + 1], 
+                          shape: shapes[index + 1],
                           index: index + 1,
                         ),
                       ),
                     );
                   },
-                  child: Text("Next"),
+                  child: Icon(Icons.arrow_forward, color: Colors.white),
                 ),
             ],
           ),

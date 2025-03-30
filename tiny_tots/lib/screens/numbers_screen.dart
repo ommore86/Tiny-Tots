@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -14,23 +15,17 @@ class NumbersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Numbers", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.deepPurple,
+        title: Text("Learn Numbers", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.purple.shade200, Colors.deepPurple.shade400],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+      backgroundColor: Colors.pink[50],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
-          padding: EdgeInsets.all(15),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+            crossAxisCount: 4,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
           ),
           itemCount: numbers.length,
           itemBuilder: (context, index) {
@@ -42,23 +37,28 @@ class NumbersScreen extends StatelessWidget {
   }
 
   Widget _buildNumberCard(BuildContext context, String number, int index) {
-    return Card(
-      elevation: 8,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => NumberDetailScreen(number: number, index: index),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NumberDetailScreen(number: number, index: index),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [Colors.pinkAccent, Colors.orangeAccent]),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: Text(
+              number,
+              style: GoogleFonts.fredoka(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-          );
-        },
-        child: Center(
-          child: Text(
-            number,
-            style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.deepPurple),
           ),
         ),
       ),
@@ -90,78 +90,82 @@ class NumberDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        title: Text("Number $number", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.deepPurple,
+        title: Text("Number $number", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.purple.shade100, Colors.deepPurple.shade300],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            number,
+            style: GoogleFonts.fredoka(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              number,
-              style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+          SizedBox(height: 20),
+
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
             ),
-            SizedBox(height: 20),
-            Image.asset(
+            child: Image.asset(
               numberImages[number]!,
-              width: 180,
-              height: 180,
+              width: 150,
+              height: 150,
               fit: BoxFit.contain,
             ),
-            SizedBox(height: 20),
-            Text(
-              numberExamples[number]!,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                if (index > 0)
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NumberDetailScreen(
-                            number: numbers[index - 1],
-                            index: index - 1,
-                          ),
+          ),
+          SizedBox(height: 20),
+
+          Text(
+            '${numberExamples[number]}',
+            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+          ),
+          SizedBox(height: 20),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (index > 0)
+                FloatingActionButton(
+                  heroTag: "prev",
+                  backgroundColor: Colors.pinkAccent,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NumberDetailScreen(
+                          number: numbers[index - 1],
+                          index: index - 1,
                         ),
-                      );
-                    },
-                    child: Text("Previous", style: TextStyle(color: Colors.white)),
-                  ),
-                if (index < numbers.length - 1)
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NumberDetailScreen(
-                            number: numbers[index + 1],
-                            index: index + 1,
-                          ),
+                      ),
+                    );
+                  },
+                  child: Icon(Icons.arrow_back, color: Colors.white),
+                ),
+
+              if (index < numbers.length - 1)
+                FloatingActionButton(
+                  heroTag: "next",
+                  backgroundColor: Colors.pinkAccent,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NumberDetailScreen(
+                          number: numbers[index + 1],
+                          index: index + 1,
                         ),
-                      );
-                    },
-                    child: Text("Next", style: TextStyle(color: Colors.white)),
-                  ),
-              ],
-            ),
-          ],
-        ),
+                      ),
+                    );
+                  },
+                  child: Icon(Icons.arrow_forward, color: Colors.white),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }

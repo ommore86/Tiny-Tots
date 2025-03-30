@@ -98,42 +98,61 @@ Rain, rain, go away.''',
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Poems for Kids")),
-      body: ListView.builder(
-        padding: EdgeInsets.all(10),
-        itemCount: poems.length,
-        itemBuilder: (context, index) {
-          return _buildPoemCard(context, poems[index]);
-        },
+      appBar: AppBar(
+        title: Text("Poems for Kids"),
+        backgroundColor: Colors.purpleAccent,
+        centerTitle: true,
+        elevation: 5,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.purple.shade200, Colors.pink.shade100],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: ListView.builder(
+          padding: EdgeInsets.all(15),
+          itemCount: poems.length,
+          itemBuilder: (context, index) {
+            return _buildPoemCard(context, poems[index]);
+          },
+        ),
       ),
     );
   }
 
   Widget _buildPoemCard(BuildContext context, Map<String, String> poem) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      elevation: 10,
+      shadowColor: Colors.deepPurpleAccent,
       child: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(20),
         child: Column(
           children: [
             Text(
               poem['title']!,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.purple),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.deepPurple),
             ),
             SizedBox(height: 10),
-
             Text(
               poem['lyrics']!,
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic, color: Colors.black87),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
-
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () => _playPoemAudio(poem['audio']!),
-              child: Text("🔊 Play Audio"),
+              icon: Icon(Icons.music_note),
+              label: Text("Play Audio"),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.deepPurpleAccent,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
             ),
           ],
         ),
