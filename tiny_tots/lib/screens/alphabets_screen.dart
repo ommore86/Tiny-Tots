@@ -107,7 +107,7 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
 
   final Map<String, String> alphabetImages = {
     for (var letter in 'abcdefghijklmnopqrstuvwxyz'.split(''))
-      letter: 'assets/images/Letter_${letter.toUpperCase()}.png'
+      letter: 'assets/images/Letter_${letter}.png'
   };
 
   @override
