@@ -149,6 +149,6 @@ final List<Map<String, dynamic>> menuItems = [
   {"title": "Birds", "imagePath": "assets/images/birds.png", "page": BirdsScreen()},
   {"title": "Poems", "imagePath": "assets/images/poems.png", "page": PoemsScreen()},
   {"title": "Exercises", "imagePath": "assets/images/exercise.png", "page": ExercisesScreen()},
-  {"title": "Games", "imagePath": "assets/images/games.png", "page": GamesScreen()},
+  {"title": "Games", "imagePath": "assets/images/games.png", "page": GamesHomeScreen()},
   {"title": "Puzzles", "imagePath": "assets/images/puzzles.png", "page": PuzzlesScreen()},
 ];

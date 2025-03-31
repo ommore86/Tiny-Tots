@@ -27,6 +27,8 @@ dependencies:
   share_plus: ^10.1.4
   url_launcher: ^6.3.1
   google_fonts: ^6.2.1
+  flutter_tts: ^4.2.2
+  confetti: ^0.8.0
 
 # Development dependencies (used for testing and linting)
 dev_dependencies:
@@ -58,60 +60,60 @@ flutter:
     - assets/images/media.png
 
  # add soundependency_overrides:
-    - assets/sounds/a.mp3
-    - assets/sounds/b.mp3
-    - assets/sounds/c.mp3
-    - assets/sounds/d.mp3
-    - assets/sounds/e.mp3
-    - assets/sounds/f.mp3
-    - assets/sounds/g.mp3
-    - assets/sounds/h.mp3
-    - assets/sounds/i.mp3
-    - assets/sounds/j.mp3
-    - assets/sounds/k.mp3
-    - assets/sounds/l.mp3
-    - assets/sounds/m.mp3
-    - assets/sounds/n.mp3
-    - assets/sounds/o.mp3
-    - assets/sounds/p.mp3
-    - assets/sounds/q.mp3
-    - assets/sounds/r.mp3
-    - assets/sounds/s.mp3
-    - assets/sounds/t.mp3
-    - assets/sounds/u.mp3
-    - assets/sounds/v.mp3
-    - assets/sounds/w.mp3
-    - assets/sounds/x.mp3
-    - assets/sounds/y.mp3
-    - assets/sounds/z.mp3
+    - assets/sounds/a.ogg
+    - assets/sounds/b.ogg
+    - assets/sounds/c.ogg
+    - assets/sounds/d.ogg
+    - assets/sounds/e.ogg
+    - assets/sounds/f.ogg
+    - assets/sounds/g.ogg
+    - assets/sounds/h.ogg
+    - assets/sounds/i.ogg
+    - assets/sounds/j.ogg
+    - assets/sounds/k.ogg
+    - assets/sounds/l.ogg
+    - assets/sounds/m.ogg
+    - assets/sounds/n.ogg
+    - assets/sounds/o.ogg
+    - assets/sounds/p.ogg
+    - assets/sounds/q.ogg
+    - assets/sounds/r.ogg
+    - assets/sounds/s.ogg
+    - assets/sounds/t.ogg
+    - assets/sounds/u.ogg
+    - assets/sounds/v.ogg
+    - assets/sounds/w.ogg
+    - assets/sounds/x.ogg
+    - assets/sounds/y.ogg
+    - assets/sounds/z.ogg
 
     # Add images for each alphabet letter
-    - assets/images/Letter_A.png
-    - assets/images/Letter_B.png
-    - assets/images/Letter_C.png
-    - assets/images/Letter_D.png
-    - assets/images/Letter_E.png
-    - assets/images/Letter_F.png
-    - assets/images/Letter_G.png
-    - assets/images/Letter_H.png
-    - assets/images/Letter_I.png
-    - assets/images/Letter_J.png
-    - assets/images/Letter_K.png
-    - assets/images/Letter_L.png
-    - assets/images/Letter_M.png
-    - assets/images/Letter_N.png
-    - assets/images/Letter_O.png
-    - assets/images/Letter_P.png
-    - assets/images/Letter_Q.png
-    - assets/images/Letter_R.png
-    - assets/images/Letter_S.png
-    - assets/images/Letter_T.png
-    - assets/images/Letter_U.png
-    - assets/images/Letter_V.png
-    - assets/images/Letter_W.png
-    - assets/images/Letter_X.png
-    - assets/images/Letter_Y.png
-    - assets/images/Letter_Z.png
+    - assets/images/Letter_a.png
+    - assets/images/Letter_b.png
+    - assets/images/Letter_c.png
+    - assets/images/Letter_d.png
+    - assets/images/Letter_e.png
+    - assets/images/Letter_f.png
+    - assets/images/Letter_g.png
+    - assets/images/Letter_h.png
+    - assets/images/Letter_i.png
+    - assets/images/Letter_j.png
+    - assets/images/Letter_k.png
+    - assets/images/Letter_l.png
+    - assets/images/Letter_m.png
+    - assets/images/Letter_n.png
+    - assets/images/Letter_o.png
+    - assets/images/Letter_p.png
+    - assets/images/Letter_q.png
+    - assets/images/Letter_r.png
+    - assets/images/Letter_s.png
+    - assets/images/Letter_t.png
+    - assets/images/Letter_u.png
+    - assets/images/Letter_v.png
+    - assets/images/Letter_w.png
+    - assets/images/Letter_x.png
+    - assets/images/Letter_y.png
+    - assets/images/Letter_z.png
   # numbers
     - assets/numbers/1.png
     - assets/numbers/2.png

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../login_screen.dart';
 import 'conduct_test_screen.dart';
 import 'track_progress_screen.dart';
@@ -42,35 +43,40 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text("Teacher Dashboard", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          "Teacher Dashboard",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22),
+        ),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
+        elevation: 0,
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ✅ Teacher's Name Header
+            // Teacher Profile Header
             Center(
               child: Column(
                 children: [
                   CircleAvatar(
-                    radius: 40,
+                    radius: 50,
                     backgroundColor: Colors.blueAccent,
-                    child: Icon(Icons.person, size: 50, color: Colors.white),
+                    child: Icon(Icons.person, size: 60, color: Colors.white),
                   ),
                   SizedBox(height: 10),
                   Text(
                     "Welcome, $teacherName",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black87),
+                    style: GoogleFonts.poppins(
+                        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
                   ),
                   SizedBox(height: 20),
                 ],
               ),
             ),
-
+            
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -78,28 +84,24 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
                 mainAxisSpacing: 15,
                 children: [
                   _buildDashboardCard(
-                    context,
                     "Student List",
                     Icons.list,
                     Colors.orange,
                     () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen())),
                   ),
                   _buildDashboardCard(
-                    context,
                     "Track Progress",
                     Icons.bar_chart,
                     Colors.green,
                     () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrackProgressScreen())),
                   ),
                   _buildDashboardCard(
-                    context,
                     "Conduct Test",
                     Icons.assignment,
                     Colors.blue,
                     () => Navigator.push(context, MaterialPageRoute(builder: (context) => ConductTestScreen())),
                   ),
                   _buildDashboardCard(
-                    context,
                     "Mark Attendance",
                     Icons.check_circle,
                     Colors.purple,
@@ -108,17 +110,19 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
                 ],
               ),
             ),
-
-            // ✅ Logout Button
+            
+            SizedBox(height: 20),
+            
+            // Logout Button
             Center(
               child: ElevatedButton(
                 onPressed: _logout,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  backgroundColor: Colors.redAccent,
+                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: Text("Logout", style: TextStyle(fontSize: 18, color: Colors.white)),
+                child: Text("Logout", style: GoogleFonts.poppins(fontSize: 18, color: Colors.white)),
               ),
             ),
           ],
@@ -127,28 +131,37 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
     );
   }
 
-  // ✅ Reusable Dashboard Card Function
-  Widget _buildDashboardCard(BuildContext context, String title, IconData icon, Color color, VoidCallback onTap) {
+  // Beautiful Dashboard Card Function
+  Widget _buildDashboardCard(String title, IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        elevation: 4,
-        color: color,
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 40, color: Colors.white),
-              SizedBox(height: 10),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.8), color.withOpacity(1)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.4),
+              blurRadius: 8,
+              offset: Offset(3, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 50, color: Colors.white),
+            SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          ],
         ),
       ),
     );

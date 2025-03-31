@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -10,13 +10,14 @@ void main() {
 }
 
 class AlphabetsScreen extends StatelessWidget {
-  final List<String> alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  final List<String> alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Learn Alphabets", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text("Learn Alphabets", 
+          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.pinkAccent,
       ),
       backgroundColor: Colors.pink[50],
@@ -52,13 +53,21 @@ class AlphabetsScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.pinkAccent, Colors.orangeAccent]),
+            gradient: LinearGradient(
+              colors: [Colors.pinkAccent, Colors.orangeAccent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
             child: Text(
-              letter,
-              style: GoogleFonts.fredoka(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
+              letter.toUpperCase(),
+              style: GoogleFonts.fredoka(
+                fontSize: 40, 
+                color: Colors.white, 
+                fontWeight: FontWeight.bold
+              ),
             ),
           ),
         ),
@@ -67,40 +76,87 @@ class AlphabetsScreen extends StatelessWidget {
   }
 }
 
-class AlphabetDetailScreen extends StatelessWidget {
+class AlphabetDetailScreen extends StatefulWidget {
   final String letter;
   final int index;
-  final AudioPlayer _audioPlayer = AudioPlayer();
 
-  AlphabetDetailScreen({Key? key, required this.letter, required this.index}) : super(key: key);
+  const AlphabetDetailScreen({
+    Key? key,
+    required this.letter,
+    required this.index,
+  }) : super(key: key);
 
-  final List<String> alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  @override
+  State<AlphabetDetailScreen> createState() => _AlphabetDetailScreenState();
+}
+
+class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
+  late FlutterTts _flutterTts;
+  bool _isSpeaking = false;
+
+  final List<String> alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
   final Map<String, String> alphabetExamples = {
-    'A': 'Apple', 'B': 'Ball', 'C': 'Cat', 'D': 'Dog', 'E': 'Elephant',
-    'F': 'Fish', 'G': 'Guitar', 'H': 'Hat', 'I': 'Ice Cream', 'J': 'Jaguar',
-    'K': 'Kite', 'L': 'Lion', 'M': 'Monkey', 'N': 'Nest', 'O': 'Orange',
-    'P': 'Panda', 'Q': 'Queen', 'R': 'Rabbit', 'S': 'Sun', 'T': 'Tiger',
-    'U': 'Umbrella', 'V': 'Violin', 'W': 'Whale', 'X': 'Xylophone',
-    'Y': 'Yarn', 'Z': 'Zebra',
+    'a': 'Apple', 'b': 'Ball', 'c': 'Cat', 'd': 'Dog', 'e': 'Elephant',
+    'f': 'Fish', 'g': 'Guitar', 'h': 'Hat', 'i': 'Ice Cream', 'j': 'Jaguar',
+    'k': 'Kite', 'l': 'Lion', 'm': 'Monkey', 'n': 'Nest', 'o': 'Orange',
+    'p': 'Panda', 'q': 'Queen', 'r': 'Rabbit', 's': 'Sun', 't': 'Tiger',
+    'u': 'Umbrella', 'v': 'Violin', 'w': 'Whale', 'x': 'Xylophone',
+    'y': 'Yarn', 'z': 'Zebra',
   };
 
   final Map<String, String> alphabetImages = {
-    for (var letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
-      letter: 'assets/images/Letter_$letter.png'
+    for (var letter in 'abcdefghijklmnopqrstuvwxyz'.split(''))
+      letter: 'assets/images/Letter_${letter.toUpperCase()}.png'
   };
 
-  final Map<String, String> alphabetSounds = {
-    for (var letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
-      letter: 'assets/sounds/$letter.mp3'
-  };
+  @override
+  void initState() {
+    super.initState();
+    _initTts();
+  }
+
+  @override
+  void dispose() {
+    _flutterTts.stop();
+    super.dispose();
+  }
+
+  Future<void> _initTts() async {
+    _flutterTts = FlutterTts();
+    
+    await _flutterTts.setLanguage('en-US');
+    await _flutterTts.setSpeechRate(0.4); // Slower for kids
+    await _flutterTts.setPitch(1.2); // Higher pitch
+    await _flutterTts.setVolume(1.0);
+
+    _flutterTts.setStartHandler(() {
+      setState(() => _isSpeaking = true);
+    });
+
+    _flutterTts.setCompletionHandler(() {
+      setState(() => _isSpeaking = false);
+    });
+
+    _flutterTts.setErrorHandler((msg) {
+      setState(() => _isSpeaking = false);
+    });
+  }
+
+  Future<void> _speak(String text) async {
+    if (_isSpeaking) {
+      await _flutterTts.stop();
+    }
+    await _flutterTts.speak(text);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        title: Text("Letter $letter", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text("Letter ${widget.letter.toUpperCase()}", 
+          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.pinkAccent,
       ),
       body: Column(
@@ -108,8 +164,12 @@ class AlphabetDetailScreen extends StatelessWidget {
         children: [
           // Letter Display
           Text(
-            letter,
-            style: GoogleFonts.fredoka(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
+            widget.letter.toUpperCase(),
+            style: GoogleFonts.fredoka(
+              fontSize: 80, 
+              fontWeight: FontWeight.bold, 
+              color: Colors.pink
+            ),
           ),
           SizedBox(height: 20),
 
@@ -117,23 +177,30 @@ class AlphabetDetailScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              // shape: BoxShape.circle,
               color: Colors.white,
               boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Image.asset(
-              alphabetImages[letter]!,
+              alphabetImages[widget.letter]!,
               width: 150,
               height: 150,
               fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) => 
+                Icon(Icons.image_not_supported, size: 60),
             ),
           ),
           SizedBox(height: 20),
 
           // Example Text
           Text(
-            '${alphabetExamples[letter]} is for $letter',
-            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+            '${alphabetExamples[widget.letter]} is for ${widget.letter.toUpperCase()}',
+            style: GoogleFonts.poppins(
+              fontSize: 24, 
+              fontWeight: FontWeight.bold, 
+              color: Colors.black87
+            ),
+            textAlign: TextAlign.center,
           ),
           SizedBox(height: 20),
 
@@ -141,37 +208,46 @@ class AlphabetDetailScreen extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-              backgroundColor: Colors.pinkAccent,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              backgroundColor: _isSpeaking ? Colors.pink[300] : Colors.pinkAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
             ),
-            onPressed: () => _playSound(letter),
+            onPressed: () => _speak(widget.letter),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.volume_up, color: Colors.white),
+                Icon(
+                  _isSpeaking ? Icons.volume_off : Icons.volume_up, 
+                  color: Colors.white
+                ),
                 SizedBox(width: 8),
-                Text("Play Sound", style: GoogleFonts.poppins(fontSize: 18, color: Colors.white)),
+                Text(
+                  _isSpeaking ? "Speaking..." : "Play Sound", 
+                  style: GoogleFonts.poppins(
+                    fontSize: 18, 
+                    color: Colors.white
+                  )
+                ),
               ],
             ),
           ),
-
           SizedBox(height: 30),
 
           // Navigation Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (index > 0)
+              if (widget.index > 0)
                 FloatingActionButton(
-                  heroTag: "prev",
+                  heroTag: "prev_${widget.letter}",
                   backgroundColor: Colors.pinkAccent,
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AlphabetDetailScreen(
-                          letter: alphabets[index - 1],
-                          index: index - 1,
+                          letter: alphabets[widget.index - 1],
+                          index: widget.index - 1,
                         ),
                       ),
                     );
@@ -179,17 +255,17 @@ class AlphabetDetailScreen extends StatelessWidget {
                   child: Icon(Icons.arrow_back, color: Colors.white),
                 ),
 
-              if (index < alphabets.length - 1)
+              if (widget.index < alphabets.length - 1)
                 FloatingActionButton(
-                  heroTag: "next",
+                  heroTag: "next_${widget.letter}",
                   backgroundColor: Colors.pinkAccent,
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AlphabetDetailScreen(
-                          letter: alphabets[index + 1],
-                          index: index + 1,
+                          letter: alphabets[widget.index + 1],
+                          index: widget.index + 1,
                         ),
                       ),
                     );
@@ -201,9 +277,5 @@ class AlphabetDetailScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> _playSound(String letter) async {
-    await _audioPlayer.play(AssetSource(alphabetSounds[letter]!));
   }
 }

@@ -51,6 +51,13 @@ class _ConductTestScreenState extends State<ConductTestScreen> {
     }
   }
 
+  void _openTestDetails(String testId, String testName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TestDetailsScreen(testId: testId, testName: testName)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,6 +160,7 @@ class _ConductTestScreenState extends State<ConductTestScreen> {
                           title: Text(test["testName"], style: TextStyle(fontWeight: FontWeight.bold)),
                           subtitle: Text("Date: ${test["date"]}\nQuestions: ${test["questions"]}\n${test["description"]}"),
                           isThreeLine: true,
+                          onTap: () => _openTestDetails(tests[index].id, test["testName"]),
                         ),
                       );
                     },
@@ -162,6 +170,38 @@ class _ConductTestScreenState extends State<ConductTestScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TestDetailsScreen extends StatelessWidget {
+  final String testId;
+  final String testName;
+
+  TestDetailsScreen({required this.testId, required this.testName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Test Details: $testName")),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection("students").snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+
+          var students = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: students.length,
+            itemBuilder: (context, index) {
+              var student = students[index];
+              return ListTile(
+                title: Text(student["name"] ?? "Unknown"),
+                subtitle: Text("Status: Absent"),
+              );
+            },
+          );
+        },
       ),
     );
   }

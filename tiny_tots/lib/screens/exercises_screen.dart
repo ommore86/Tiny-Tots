@@ -35,42 +35,78 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
     // All question sets combined
     List<Map<String, dynamic>> allQuestions = [
       // Animals
-      {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/dog.png", "options": ["Dog", "Cat", "Bird"], "answer": "Dog", "category": "Animals"},
-      {"type": "image", "question": "Who is this?", "image": "assets/images/animals/elephant.png", "options": ["Elephant", "Lion", "Monkey"], "answer": "Elephant", "category": "Animals"},
-      {"type": "sound", "question": "What animal makes this sound?", "sound": "assets/sounds/cat.mp3", "options": ["Cat", "Dog", "Cow"], "answer": "Cat", "category": "Animals"},
+      {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/dog.png", "options": ["Cat", "Dog", "Bird"], "answer": "Dog", "category": "Animals"},
+      {"type": "image", "question": "Who is this?", "image": "assets/images/animals/elephant.png", "options": ["Monkey", "Lion", "Elephant"], "answer": "Elephant", "category": "Animals"},
+      {"type": "sound", "question": "What animal makes this sound?", "sound": "assets/sounds/cat.mp3", "options": ["Cow", "Dog", "Cat"], "answer": "Cat", "category": "Animals"},
       {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/bird.png", "options": ["Bird", "Fish", "Snake"], "answer": "Bird", "category": "Animals"},
-      {"type": "sound", "question": "Listen and guess!", "sound": "assets/sounds/cow.mp3", "options": ["Cow", "Horse", "Sheep"], "answer": "Cow", "category": "Animals"},
-      {"type": "image", "question": "Who is this?", "image": "assets/images/animals/fish.png", "options": ["Fish", "Rabbit", "Tiger"], "answer": "Fish", "category": "Animals"},
-      {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/lion.png", "options": ["Lion", "Bear", "Deer"], "answer": "Lion", "category": "Animals"},
+      {"type": "sound", "question": "Listen and guess!", "sound": "assets/sounds/cow.mp3", "options": ["Horse", "Cow", "Sheep"], "answer": "Cow", "category": "Animals"},
+      {"type": "image", "question": "Who is this?", "image": "assets/images/animals/fish.png", "options": ["Tiger", "Rabbit", "Fish"], "answer": "Fish", "category": "Animals"},
+      {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/lion.png", "options": ["Bear", "Lion", "Deer"], "answer": "Lion", "category": "Animals"},
       {"type": "sound", "question": "What animal is this?", "sound": "assets/sounds/horse.mp3", "options": ["Horse", "Pig", "Duck"], "answer": "Horse", "category": "Animals"},
       {"type": "image", "question": "Who is this?", "image": "assets/images/animals/rabbit.png", "options": ["Rabbit", "Mouse", "Fox"], "answer": "Rabbit", "category": "Animals"},
-      {"type": "sound", "question": "Listen and guess!", "sound": "assets/sounds/duck.mp3", "options": ["Duck", "Goose", "Chicken"], "answer": "Duck", "category": "Animals"},
+      {"type": "sound", "question": "Listen and guess!", "sound": "assets/sounds/duck.mp3", "options": ["Goose", "Duck", "Chicken"], "answer": "Duck", "category": "Animals"},
       
       // Colors
-      {"type": "image", "question": "What color is this?", "image": "assets/images/colors/red.png", "options": ["Red", "Blue", "Green"], "answer": "Red", "category": "Colors"},
-      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/blue.png", "options": ["Blue", "Yellow", "Pink"], "answer": "Blue", "category": "Colors"},
+      {"type": "image", "question": "What color is this?", "image": "assets/images/colors/red.png", "options": ["Blue", "Red", "Green"], "answer": "Red", "category": "Colors"},
+      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/blue.png", "options": ["Pink", "Yellow", "Blue"], "answer": "Blue", "category": "Colors"},
       {"type": "image", "question": "What color is this?", "image": "assets/images/colors/yellow.png", "options": ["Yellow", "Orange", "Purple"], "answer": "Yellow", "category": "Colors"},
-      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/green.png", "options": ["Green", "Brown", "Red"], "answer": "Green", "category": "Colors"},
+      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/green.png", "options": ["Brown", "Green", "Red"], "answer": "Green", "category": "Colors"},
       {"type": "image", "question": "What color is this?", "image": "assets/images/colors/purple.png", "options": ["Purple", "Pink", "Blue"], "answer": "Purple", "category": "Colors"},
-      
+      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/orange.png", "options": ["Red", "Orange", "Yellow"], "answer": "Orange"},
+      {"type": "image", "question": "What color is this?", "image": "assets/images/colors/pink.png", "options": ["Green", "Purple", "Pink"], "answer": "Pink"},
+      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/brown.png", "options": ["Blue", "Black", "Brown"], "answer": "Brown"},
+      {"type": "image", "question": "What color is this?", "image": "assets/images/colors/black.png", "options": ["Black", "White", "Red"], "answer": "Black"},
+      {"type": "image", "question": "Guess the color!", "image": "assets/images/colors/white.png", "options": ["White", "Gray", "Yellow"], "answer": "White"},
+
+
       // Shapes
       {"type": "image", "question": "What shape is this?", "image": "assets/images/shapes/circle.png", "options": ["Circle", "Square", "Triangle"], "answer": "Circle", "category": "Shapes"},
-      {"type": "image", "question": "Guess the shape!", "image": "assets/images/shapes/square.png", "options": ["Square", "Rectangle", "Oval"], "answer": "Square", "category": "Shapes"},
-      {"type": "image", "question": "What shape is this?", "image": "assets/images/shapes/triangle.png", "options": ["Triangle", "Circle", "Hexagon"], "answer": "Triangle", "category": "Shapes"},
-      
+      {"type": "image", "question": "Guess the shape!", "image": "assets/images/shapes/square.png", "options": ["Rectangle", "Square", "Oval"], "answer": "Square", "category": "Shapes"},
+      {"type": "image", "question": "What shape is this?", "image": "assets/images/shapes/triangle.png", "options": ["Hexagon", "Circle", "Triangle"], "answer": "Triangle", "category": "Shapes"},
+      {"type": "image", "question": "Guess the shape!", "image": "assets/images/shapes/rectangle.png", "options": ["Rectangle", "Square", "Star"], "answer": "Rectangle"},
+      {"type": "image", "question": "What shape is this?", "image": "assets/images/shapes/star.png", "options": ["Circle", "Star", "Pentagon"], "answer": "Star"},
+      {"type": "image", "question": "Guess the shape!", "image": "assets/images/shapes/pentagon.png", "options": ["Triangle", "Hexagon", "Pentagon"], "answer": "Pentagon"},
+      {"type": "image", "question": "What shape is this?", "image": "assets/images/shapes/hexagon.png", "options": ["Hexagon", "Square", "Oval"], "answer": "Hexagon"},
+      {"type": "image", "question": "Guess the shape!", "image": "assets/images/shapes/oval.png", "options": ["Star", "Oval", "Rectangle"], "answer": "Oval"},
+      {"type": "image", "question": "What shape is this?", "image": "assets/images/shapes/diamond.png", "options": ["Triangle", "Star", "Diamond"], "answer": "Diamond"},
+
+
       // Fruits
       {"type": "image", "question": "What fruit is this?", "image": "assets/images/fruits/apple.png", "options": ["Apple", "Banana", "Orange"], "answer": "Apple", "category": "Fruits"},
-      {"type": "image", "question": "Guess the fruit!", "image": "assets/images/fruits/banana.png", "options": ["Banana", "Grape", "Mango"], "answer": "Banana", "category": "Fruits"},
-      {"type": "image", "question": "What fruit is this?", "image": "assets/images/fruits/orange.png", "options": ["Orange", "Apple", "Pear"], "answer": "Orange", "category": "Fruits"},
-      
+      {"type": "image", "question": "Guess the fruit!", "image": "assets/images/fruits/banana.png", "options": ["Grape", "Banana", "Mango"], "answer": "Banana", "category": "Fruits"},
+      {"type": "image", "question": "What fruit is this?", "image": "assets/images/fruits/orange.png", "options": ["Pear", "Apple", "Orange"], "answer": "Orange", "category": "Fruits"},
+      {"type": "image", "question": "Guess the fruit!", "image": "assets/images/fruits/grape.png", "options": ["Grape", "Cherry", "Strawberry"], "answer": "Grape"},
+      {"type": "image", "question": "What fruit is this?", "image": "assets/images/fruits/mango.png", "options": ["Pineapple", "Mango", "Peach"], "answer": "Mango"},
+      {"type": "image", "question": "Guess the fruit!", "image": "assets/images/fruits/strawberry.png", "options": ["Blueberry", "Raspberry", "Strawberry"], "answer": "Strawberry"},
+      {"type": "image", "question": "What fruit is this?", "image": "assets/images/fruits/pineapple.png", "options": ["Pineapple", "Melon", "Kiwi"], "answer": "Pineapple"},
+      {"type": "image", "question": "Guess the fruit!", "image": "assets/images/fruits/pear.png", "options": ["Apple", "Pear", "Plum"], "answer": "Pear"},
+      {"type": "image", "question": "What fruit is this?", "image": "assets/images/fruits/cherry.png", "options": ["Berry", "Grape", "Cherry"], "answer": "Cherry"},
+      {"type": "image", "question": "Guess the fruit!", "image": "assets/images/fruits/kiwi.png", "options": ["Kiwi", "Mango", "Orange"], "answer": "Kiwi"},
+
+
       // Numbers
       {"type": "image", "question": "How many are there?", "image": "assets/numbers/1.png", "options": ["1", "2", "3"], "answer": "1", "category": "Numbers"},
-      {"type": "image", "question": "Count them!", "image": "assets/numbers/2.png", "options": ["2", "3", "4"], "answer": "2", "category": "Numbers"},
-      {"type": "image", "question": "How many are there?", "image": "assets/numbers/3.png", "options": ["3", "1", "5"], "answer": "3", "category": "Numbers"},
-      
+      {"type": "image", "question": "Count them!", "image": "assets/numbers/2.png", "options": ["3", "2", "4"], "answer": "2", "category": "Numbers"},
+      {"type": "image", "question": "How many are there?", "image": "assets/numbers/3.png", "options": ["5", "1", "3"], "answer": "3", "category": "Numbers"},
+      {"type": "image", "question": "Count them!", "image": "assets/numbers/4.png", "options": ["4", "2", "6"], "answer": "4"},
+      {"type": "image", "question": "How many are there?", "image": "assets/numbers/5.png", "options": ["3", "5", "7"], "answer": "5"},
+      {"type": "image", "question": "Count them!", "image": "assets/numbers/6.png", "options": ["8", "4", "6"], "answer": "6"},
+      {"type": "image", "question": "How many are there?", "image": "assets/numbers/7.png", "options": ["5", "7", "9"], "answer": "7"},
+      {"type": "image", "question": "Count them!", "image": "assets/numbers/8.png", "options": ["10", "6", "8"], "answer": "8"},
+      {"type": "image", "question": "How many are there?", "image": "assets/numbers/9.png", "options": ["9", "7", "1"], "answer": "9"},
+      {"type": "image", "question": "Count them!", "image": "assets/numbers/10.png", "options": ["2", "8", "10"], "answer": "10"},
+
       // Foods
       {"type": "image", "question": "What food is this?", "image": "assets/images/foods/pizza.png", "options": ["Pizza", "Burger", "Cake"], "answer": "Pizza", "category": "Foods"},
-      {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/burger.png", "options": ["Burger", "Sandwich", "Ice Cream"], "answer": "Burger", "category": "Foods"},
+      {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/burger.png", "options": ["Sandwich", "Burger", "Ice Cream"], "answer": "Burger", "category": "Foods"},
+      {"type": "image", "question": "What food is this?", "image": "assets/images/foods/cake.png", "options": ["Pizza", "Cookie", "Cake"], "answer": "Cake"},
+      {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/icecream.png", "options": ["Ice Cream", "Candy", "Bread"], "answer": "Ice Cream"},
+      {"type": "image", "question": "What food is this?", "image": "assets/images/foods/sandwich.png", "options": ["Burger", "Sandwich", "Pasta"], "answer": "Sandwich"},
+      {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/cookie.png", "options": ["Donut", "Cake", "Cookie"], "answer": "Cookie"},
+      {"type": "image", "question": "What food is this?", "image": "assets/images/foods/pasta.png", "options": ["Pasta", "Pizza", "Soup"], "answer": "Pasta"},
+      {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/donut.png", "options": ["Cookie", "Donut", "Bread"], "answer": "Donut"},
+      {"type": "image", "question": "What food is this?", "image": "assets/images/foods/bread.png", "options": ["Cake", "Sandwich", "Bread"], "answer": "Bread"},
+      {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/soup.png", "options": ["Soup", "Pasta", "Pizza"], "answer": "Soup"},
     ];
 
     // Shuffle all questions and take first 10
@@ -330,13 +366,6 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                             value: (currentQuestionIndex + 1) / questions.length,
                             backgroundColor: Colors.white.withOpacity(0.3),
                             color: Colors.amber,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(
-                            "Question ${currentQuestionIndex + 1} of ${questions.length}",
-                            style: TextStyle(color: Colors.white, fontSize: 12), // Reduced font size
                           ),
                         ),
                       ],
