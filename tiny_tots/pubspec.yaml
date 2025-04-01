@@ -7,6 +7,13 @@ publish_to: 'none'
 # Version and build number for the app
 version: 1.0.0+1
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo/icon.png"  # Path to your 1024×1024 logo
+  adaptive_icon_background: "#FFFFFF"  # For Android adaptive icons
+  adaptive_icon_foreground: "assets/logo/icon_foreground.png"
+
 # Dart SDK version
 environment:
   sdk: ^3.7.0
@@ -37,6 +44,9 @@ dev_dependencies:
 
   # Recommended lints for good coding practices
   flutter_lints: ^5.0.0
+
+  flutter_launcher_icons: "^0.13.1"
+
 
 # Flutter-specific configuration
 flutter:

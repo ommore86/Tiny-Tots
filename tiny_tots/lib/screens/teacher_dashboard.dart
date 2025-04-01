@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
+
 import '../login_screen.dart';
 import 'conduct_test_screen.dart';
 import 'track_progress_screen.dart';
@@ -36,96 +38,126 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
   }
 
   Future<void> _logout() async {
-    await _auth.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    bool confirmLogout = await _showLogoutConfirmationDialog();
+    if (confirmLogout) {
+      await _auth.signOut();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+  }
+
+  Future<bool> _showLogoutConfirmationDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Confirm Logout", style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        content: Text("Are you sure you want to log out?", style: GoogleFonts.poppins(fontSize: 16)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false), // Cancel logout
+            child: Text("No", style: GoogleFonts.poppins(fontSize: 16, color: Colors.red)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true), // Confirm logout
+            child: Text("Yes", style: GoogleFonts.poppins(fontSize: 16, color: Colors.blueAccent)),
+          ),
+        ],
+      ),
+    ) ?? false; // Default to false if dialog is dismissed
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: Text(
-          "Teacher Dashboard",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22),
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        appBar: AppBar(
+          title: Text(
+            "Teacher Dashboard",
+            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.blueAccent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            // Teacher Profile Header
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.blueAccent,
-                    child: Icon(Icons.person, size: 60, color: Colors.white),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Welcome, $teacherName",
-                    style: GoogleFonts.poppins(
-                        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
-            
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
-                children: [
-                  _buildDashboardCard(
-                    "Student List",
-                    Icons.list,
-                    Colors.orange,
-                    () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen())),
-                  ),
-                  _buildDashboardCard(
-                    "Track Progress",
-                    Icons.bar_chart,
-                    Colors.green,
-                    () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrackProgressScreen())),
-                  ),
-                  _buildDashboardCard(
-                    "Conduct Test",
-                    Icons.assignment,
-                    Colors.blue,
-                    () => Navigator.push(context, MaterialPageRoute(builder: (context) => ConductTestScreen())),
-                  ),
-                  _buildDashboardCard(
-                    "Mark Attendance",
-                    Icons.check_circle,
-                    Colors.purple,
-                    () => Navigator.push(context, MaterialPageRoute(builder: (context) => MarkAttendanceScreen())),
-                  ),
-                ],
-              ),
-            ),
-            
-            SizedBox(height: 20),
-            
-            // Logout Button
-            Center(
-              child: ElevatedButton(
-                onPressed: _logout,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        body: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              // Teacher Profile Header
+              Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.blueAccent,
+                      child: Icon(Icons.person, size: 60, color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Welcome, $teacherName",
+                      style: GoogleFonts.poppins(
+                          fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+                    ),
+                    SizedBox(height: 20),
+                  ],
                 ),
-                child: Text("Logout", style: GoogleFonts.poppins(fontSize: 18, color: Colors.white)),
               ),
-            ),
-          ],
+              
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  children: [
+                    _buildDashboardCard(
+                      "Student List",
+                      Icons.list,
+                      Colors.orange,
+                      () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen())),
+                    ),
+                    _buildDashboardCard(
+                      "Track Progress",
+                      Icons.bar_chart,
+                      Colors.green,
+                      () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrackProgressScreen())),
+                    ),
+                    _buildDashboardCard(
+                      "Conduct Test",
+                      Icons.assignment,
+                      Colors.blue,
+                      () => Navigator.push(context, MaterialPageRoute(builder: (context) => ConductTestScreen())),
+                    ),
+                    _buildDashboardCard(
+                      "Mark Attendance",
+                      Icons.check_circle,
+                      Colors.purple,
+                      () => Navigator.push(context, MaterialPageRoute(builder: (context) => MarkAttendanceScreen())),
+                    ),
+                  ],
+                ),
+              ),
+              
+              SizedBox(height: 20),
+              
+              // Logout Button
+              Center(
+                child: ElevatedButton(
+                  onPressed: _logout,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  child: Text("Logout", style: GoogleFonts.poppins(fontSize: 18, color: Colors.white)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

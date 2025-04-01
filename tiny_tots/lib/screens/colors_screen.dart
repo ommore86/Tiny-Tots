@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -25,7 +27,11 @@ class ColorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Colors")),
+      appBar: AppBar(
+        title: Text("Learn Colors", style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
+      ),
+      backgroundColor: Colors.pink[50],
       body: GridView.builder(
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -43,10 +49,9 @@ class ColorsScreen extends StatelessWidget {
 
   Widget _buildColorCard(BuildContext context, int index) {
     return Card(
-      elevation: 5,
-      color: colorsList[index]['color'],
+      elevation: 8,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
         onTap: () {
@@ -60,10 +65,16 @@ class ColorsScreen extends StatelessWidget {
             ),
           );
         },
-        child: Center(
-          child: Text(
-            colorsList[index]['name'],
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        child: Container(
+          decoration: BoxDecoration(
+            color: colorsList[index]['color'],
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: Text(
+              colorsList[index]['name'],
+              style: GoogleFonts.fredoka(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -74,31 +85,49 @@ class ColorsScreen extends StatelessWidget {
 class ColorDetailScreen extends StatelessWidget {
   final List<Map<String, dynamic>> colorsList;
   final int currentIndex;
+  final FlutterTts flutterTts = FlutterTts();
 
   ColorDetailScreen({Key? key, required this.colorsList, required this.currentIndex}) : super(key: key);
+
+  void _speakColor() {
+    flutterTts.speak(colorsList[currentIndex]['name']);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Details for ${colorsList[currentIndex]['name']}")),
+      appBar: AppBar(
+        title: Text("${colorsList[currentIndex]['name']}", style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
+      ),
+      backgroundColor: Colors.pink[50],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               colorsList[currentIndex]['name'],
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: colorsList[currentIndex]['color']),
+              style: GoogleFonts.fredoka(fontSize: 40, fontWeight: FontWeight.bold, color: colorsList[currentIndex]['color']),
             ),
             SizedBox(height: 20),
-
             Container(
-              width: 150,
-              height: 150,
+              width: 180,
+              height: 180,
               decoration: BoxDecoration(
                 color: colorsList[currentIndex]['color'],
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.black, width: 2),
+                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
               ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _speakColor,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.pinkAccent,
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              ),
+              child: Text("Play Sound", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
             ),
             SizedBox(height: 20),
           ],
@@ -109,7 +138,8 @@ class ColorDetailScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
+            FloatingActionButton(
+              backgroundColor: Colors.pinkAccent,
               onPressed: currentIndex > 0
                   ? () {
                       Navigator.pushReplacement(
@@ -122,10 +152,11 @@ class ColorDetailScreen extends StatelessWidget {
                         ),
                       );
                     }
-                  : null, // Disable button if first color
-              child: Text("Previous"),
+                  : null,
+              child: Icon(Icons.arrow_back, color: Colors.white),
             ),
-            ElevatedButton(
+            FloatingActionButton(
+              backgroundColor: Colors.pinkAccent,
               onPressed: currentIndex < colorsList.length - 1
                   ? () {
                       Navigator.pushReplacement(
@@ -138,8 +169,8 @@ class ColorDetailScreen extends StatelessWidget {
                         ),
                       );
                     }
-                  : null, // Disable button if last color
-              child: Text("Next"),
+                  : null,
+              child: Icon(Icons.arrow_forward, color: Colors.white),
             ),
           ],
         ),

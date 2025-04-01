@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -68,11 +69,19 @@ class ShapesScreen extends StatelessWidget {
   }
 }
 
-class ShapeDetailScreen extends StatelessWidget {
+class ShapeDetailScreen extends StatefulWidget {
   final String shape;
   final int index;
 
   ShapeDetailScreen({Key? key, required this.shape, required this.index}) : super(key: key);
+
+  @override
+  _ShapeDetailScreenState createState() => _ShapeDetailScreenState();
+}
+
+class _ShapeDetailScreenState extends State<ShapeDetailScreen> {
+  late FlutterTts _flutterTts;
+  final FlutterTts flutterTts = FlutterTts();
 
   final List<String> shapes = [
     'Circle', 'Square', 'Triangle', 'Rectangle', 'Star', 'Oval', 'Pentagon', 'Hexagon', 'Diamond'
@@ -90,19 +99,28 @@ class ShapeDetailScreen extends StatelessWidget {
     'Diamond': 'assets/images/shapes/diamond.png',
   };
 
+  void _speak() async {
+    await flutterTts.speak(widget.shape);
+
+    await _flutterTts.setLanguage('en-US');
+    await _flutterTts.setSpeechRate(0.2); // Slower for kids
+    await _flutterTts.setPitch(1.2); // Higher pitch
+    await _flutterTts.setVolume(1.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        title: Text(shape, style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text(widget.shape, style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.pinkAccent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            shape,
+            widget.shape,
             style: GoogleFonts.fredoka(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.pink),
           ),
           SizedBox(height: 20),
@@ -114,7 +132,7 @@ class ShapeDetailScreen extends StatelessWidget {
               boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
             ),
             child: Image.asset(
-              shapeImages[shape] ?? 'assets/images/shapes/circle.png',
+              shapeImages[widget.shape] ?? 'assets/images/shapes/circle.png',
               width: 150,
               height: 150,
               fit: BoxFit.contain,
@@ -122,10 +140,24 @@ class ShapeDetailScreen extends StatelessWidget {
           ),
           SizedBox(height: 20),
 
+          ElevatedButton(
+            onPressed: _speak,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.pinkAccent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            ),
+            child: Text(
+              "Play Sound",
+              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          ),
+          SizedBox(height: 20),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (index > 0)
+              if (widget.index > 0)
                 FloatingActionButton(
                   heroTag: "prev",
                   backgroundColor: Colors.pinkAccent,
@@ -134,8 +166,8 @@ class ShapeDetailScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ShapeDetailScreen(
-                          shape: shapes[index - 1],
-                          index: index - 1,
+                          shape: shapes[widget.index - 1],
+                          index: widget.index - 1,
                         ),
                       ),
                     );
@@ -143,7 +175,7 @@ class ShapeDetailScreen extends StatelessWidget {
                   child: Icon(Icons.arrow_back, color: Colors.white),
                 ),
 
-              if (index < shapes.length - 1)
+              if (widget.index < shapes.length - 1)
                 FloatingActionButton(
                   heroTag: "next",
                   backgroundColor: Colors.pinkAccent,
@@ -152,8 +184,8 @@ class ShapeDetailScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ShapeDetailScreen(
-                          shape: shapes[index + 1],
-                          index: index + 1,
+                          shape: shapes[widget.index + 1],
+                          index: widget.index + 1,
                         ),
                       ),
                     );

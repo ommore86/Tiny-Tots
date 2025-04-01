@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -66,12 +67,19 @@ class NumbersScreen extends StatelessWidget {
   }
 }
 
-class NumberDetailScreen extends StatelessWidget {
+class NumberDetailScreen extends StatefulWidget {
   final String number;
   final int index;
 
   NumberDetailScreen({Key? key, required this.number, required this.index}) : super(key: key);
 
+  @override
+  _NumberDetailScreenState createState() => _NumberDetailScreenState();
+}
+
+class _NumberDetailScreenState extends State<NumberDetailScreen> {
+  late FlutterTts _flutterTts;
+  final FlutterTts flutterTts = FlutterTts();
   final List<String> numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   final Map<String, String> numberExamples = {
@@ -87,19 +95,27 @@ class NumberDetailScreen extends StatelessWidget {
     '10': 'assets/numbers/10.png'
   };
 
+  void _speakNumber() async {
+    await flutterTts.speak(widget.number);
+    await _flutterTts.setLanguage('en-US');
+    await _flutterTts.setSpeechRate(0.4); // Slower for kids
+    await _flutterTts.setPitch(1.2); // Higher pitch
+    await _flutterTts.setVolume(1.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        title: Text("Number $number", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text("Number ${widget.number}", style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.pinkAccent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            number,
+            widget.number,
             style: GoogleFonts.fredoka(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.pink),
           ),
           SizedBox(height: 20),
@@ -111,7 +127,7 @@ class NumberDetailScreen extends StatelessWidget {
               boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
             ),
             child: Image.asset(
-              numberImages[number]!,
+              numberImages[widget.number]!,
               width: 150,
               height: 150,
               fit: BoxFit.contain,
@@ -120,15 +136,23 @@ class NumberDetailScreen extends StatelessWidget {
           SizedBox(height: 20),
 
           Text(
-            '${numberExamples[number]}',
+            '${numberExamples[widget.number]}',
             style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
           ),
+          SizedBox(height: 20),
+
+          FloatingActionButton(
+            onPressed: _speakNumber,
+            backgroundColor: Colors.pinkAccent,
+            child: Icon(Icons.volume_up, color: Colors.white),
+          ),
+
           SizedBox(height: 20),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (index > 0)
+              if (widget.index > 0)
                 FloatingActionButton(
                   heroTag: "prev",
                   backgroundColor: Colors.pinkAccent,
@@ -137,8 +161,8 @@ class NumberDetailScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => NumberDetailScreen(
-                          number: numbers[index - 1],
-                          index: index - 1,
+                          number: numbers[widget.index - 1],
+                          index: widget.index - 1,
                         ),
                       ),
                     );
@@ -146,7 +170,7 @@ class NumberDetailScreen extends StatelessWidget {
                   child: Icon(Icons.arrow_back, color: Colors.white),
                 ),
 
-              if (index < numbers.length - 1)
+              if (widget.index < numbers.length - 1)
                 FloatingActionButton(
                   heroTag: "next",
                   backgroundColor: Colors.pinkAccent,
@@ -155,8 +179,8 @@ class NumberDetailScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => NumberDetailScreen(
-                          number: numbers[index + 1],
-                          index: index + 1,
+                          number: numbers[widget.index + 1],
+                          index: widget.index + 1,
                         ),
                       ),
                     );

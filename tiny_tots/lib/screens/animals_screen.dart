@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -89,15 +90,30 @@ class AnimalsScreen extends StatelessWidget {
   }
 }
 
-class AnimalDetailScreen extends StatelessWidget {
+class AnimalDetailScreen extends StatefulWidget {
   final List<Map<String, String>> animalsList;
   final int currentIndex;
 
   AnimalDetailScreen({Key? key, required this.animalsList, required this.currentIndex}) : super(key: key);
 
   @override
+  _AnimalDetailScreenState createState() => _AnimalDetailScreenState();
+}
+
+class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
+  FlutterTts flutterTts = FlutterTts();
+
+  Future<void> _speakSpelling(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setSpeechRate(0.4); // Slower for kids
+    await flutterTts.setPitch(1.2);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.speak(text);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Map<String, String> animalData = animalsList[currentIndex];
+    Map<String, String> animalData = widget.animalsList[widget.currentIndex];
 
     return Scaffold(
       appBar: AppBar(
@@ -125,47 +141,58 @@ class AnimalDetailScreen extends StatelessWidget {
                 animalData['name']!,
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.brown),
               ),
+              SizedBox(height: 20),
+
+              // Play Sound Button (Pronounce Spelling)
+              ElevatedButton.icon(
+                onPressed: () => _speakSpelling(animalData['name']!),
+                icon: Icon(Icons.volume_up, color: Colors.white),
+                label: Text("Play Spelling"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+
               SizedBox(height: 30),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  if (currentIndex > 0)
+                  if (widget.currentIndex > 0)
                     ElevatedButton.icon(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => AnimalDetailScreen(
-                              animalsList: animalsList,
-                              currentIndex: currentIndex - 1,
+                              animalsList: widget.animalsList,
+                              currentIndex: widget.currentIndex - 1,
                             ),
                           ),
                         );
                       },
                       icon: Icon(Icons.arrow_back),
                       label: Text("Previous"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                      ),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                     ),
-                  if (currentIndex < animalsList.length - 1)
+                  if (widget.currentIndex < widget.animalsList.length - 1)
                     ElevatedButton.icon(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => AnimalDetailScreen(
-                              animalsList: animalsList,
-                              currentIndex: currentIndex + 1,
+                              animalsList: widget.animalsList,
+                              currentIndex: widget.currentIndex + 1,
                             ),
                           ),
                         );
                       },
                       icon: Icon(Icons.arrow_forward),
                       label: Text("Next"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                      ),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                     ),
                 ],
               ),
