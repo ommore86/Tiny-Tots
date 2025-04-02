@@ -68,15 +68,35 @@ class _TeacherLoginState extends State<TeacherLogin> {
   }
 
   Future<void> _resetPassword() async {
-    String email = emailController.text.trim();
+  String email = emailController.text.trim();
 
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter your email!"), backgroundColor: Colors.orange),
-      );
-      return;
-    }
+  if (email.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter your email!"), backgroundColor: Colors.orange),
+    );
+    return;
+  }
 
+  // Show confirmation dialog before proceeding
+  bool? confirmReset = await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Confirm Password Reset"),
+      content: Text("Are you sure you want to reset your password?"),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false), // Cancel
+          child: Text("No", style: TextStyle(color: Colors.red)),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, true), // Confirm
+          child: Text("Yes", style: TextStyle(color: Colors.green)),
+        ),
+      ],
+    ),
+  );
+
+  if (confirmReset == true) {
     try {
       // 🔍 Check if the email exists in Firestore as a Teacher
       QuerySnapshot querySnapshot = await _firestore
@@ -95,8 +115,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
         // ❌ Email not found or not a Teacher
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-                "No teacher account found with this email. Please contact admin or check your email."),
+            content: Text("No teacher account found with this email. Please contact admin or check your email."),
             backgroundColor: Colors.red,
           ),
         );
@@ -107,6 +126,8 @@ class _TeacherLoginState extends State<TeacherLogin> {
       );
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

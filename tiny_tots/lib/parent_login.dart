@@ -60,19 +60,41 @@ class _ParentLoginState extends State<ParentLogin> {
   }
 
   Future<void> _resetPassword() async {
-    String email = emailController.text.trim();
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter your email!"), backgroundColor: Colors.orange),
-      );
-      return;
-    }
+  String email = emailController.text.trim();
+  if (email.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter your email!"), backgroundColor: Colors.orange),
+    );
+    return;
+  }
+
+  // Show Confirmation Dialog Before Resetting
+  bool? confirmReset = await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Confirm Password Reset"),
+      content: Text("Are you sure you want to reset your password?"),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false), // Cancel
+          child: Text("No", style: TextStyle(color: Colors.red)),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, true), // Confirm
+          child: Text("Yes", style: TextStyle(color: Colors.green)),
+        ),
+      ],
+    ),
+  );
+
+  if (confirmReset == true) {
     try {
       QuerySnapshot querySnapshot = await _firestore
           .collection("users")
           .where("email", isEqualTo: email)
           .where("role", isEqualTo: "Parent")
           .get();
+
       if (querySnapshot.docs.isNotEmpty) {
         await _auth.sendPasswordResetEmail(email: email);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -89,6 +111,7 @@ class _ParentLoginState extends State<ParentLogin> {
       );
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {

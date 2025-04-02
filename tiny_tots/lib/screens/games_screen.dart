@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:confetti/confetti.dart';
@@ -253,11 +254,42 @@ class CountingGameScreen extends StatefulWidget {
 
 class _CountingGameScreenState extends State<CountingGameScreen> {
   int count = 0;
-  final ConfettiController _confettiController = ConfettiController();
+  int targetCount = 5;
+  int questionIndex = 0;
+  final ConfettiController _confettiController = ConfettiController(duration: Duration(seconds: 2));
+  List<String> questions = [
+    "Tap on the apples to count!",
+    "How many bananas are here?",
+    "Count the oranges!",
+    "Click on the grapes to reach the number!"
+  ];
+  List<String> fruitImages = [
+    'assets/images/fruits/apple.png',
+    'assets/images/fruits/banana.png',
+    'assets/images/fruits/orange.png',
+    'assets/images/fruits/grape.png'
+  ];
+  List<Color> fruitColors = [Colors.red, Colors.yellow, Colors.orange, Colors.purple];
+
+  @override
+  void initState() {
+    super.initState();
+    _generateNewQuestion();
+  }
+
+  void _generateNewQuestion() {
+    setState(() {
+      count = 0;
+      questionIndex = Random().nextInt(questions.length);
+      targetCount = Random().nextInt(5) + 3; // Target count between 3-7
+    });
+  }
 
   void _incrementCount() {
-    setState(() => count++);
-    if (count == 5) _confettiController.play();
+    setState(() {
+      if (count < targetCount) count++;
+      if (count == targetCount) _confettiController.play();
+    });
   }
 
   @override
@@ -274,39 +306,56 @@ class _CountingGameScreenState extends State<CountingGameScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Count the apples:",
-                    style: GoogleFonts.poppins(fontSize: 20)),
+                Text(
+                  questions[questionIndex],
+                  style: GoogleFonts.poppins(fontSize: 22),
+                  textAlign: TextAlign.center,
+                ),
                 SizedBox(height: 20),
                 
-                // Interactive Fruits
                 Wrap(
-                  spacing: 10,
+                  spacing: 15,
+                  runSpacing: 15,
                   children: List.generate(10, (index) => GestureDetector(
                     onTap: _incrementCount,
                     child: AnimatedScale(
-                      scale: index < count ? 0.9 : 1.0,
+                      scale: index < count ? 0.8 : 1.0,
                       duration: Duration(milliseconds: 200),
                       child: Image.asset(
-                        'assets/images/fruits/apple.png',
-                        width: 50,
-                        color: Colors.red,
+                        fruitImages[questionIndex],
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover, // Ensures image is fully displayed
                         errorBuilder: (context, error, stackTrace) => 
-                          Icon(Icons.apple, size: 50, color: Colors.red),
+                          Container(
+                            width: 60,
+                            height: 60,
+                            color: Colors.grey,
+                            child: Icon(Icons.error, color: Colors.red),
+                          ),
                       ),
                     ),
                   )),
                 ),
                 
                 SizedBox(height: 30),
-                Text("$count / 5",
+                Text("$count / $targetCount",
                     style: GoogleFonts.fredoka(fontSize: 40)),
-                if (count >= 5) ...[
+                if (count >= targetCount) ...[
                   SizedBox(height: 20),
                   Text("Great counting! 🎉",
                       style: GoogleFonts.poppins(
                         fontSize: 24,
                         color: Colors.green[700],
                       )),
+                  ElevatedButton(
+                    onPressed: _generateNewQuestion,
+                    child: Text("Next Question"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                    ),
+                  )
                 ],
               ],
             ),
@@ -322,7 +371,6 @@ class _CountingGameScreenState extends State<CountingGameScreen> {
     );
   }
 }
-
 // ======================
 // 🔵 SHAPE GAME
 // ======================
