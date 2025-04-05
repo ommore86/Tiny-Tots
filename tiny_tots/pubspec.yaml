@@ -36,6 +36,8 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_tts: ^4.2.2
   confetti: ^0.8.0
+  youtube_player_flutter: ^9.1.1
+
 
 # Development dependencies (used for testing and linting)
 dev_dependencies:
@@ -55,8 +57,9 @@ flutter:
 
   # Add assets (images, fonts, etc.)
   assets:
-    - assets/splash_logo.png
+    - assets/images/splash_logo.png
 
+    - assets/images/learning.png
     - assets/images/alphabets.png
     - assets/images/numbers.png
     - assets/images/shapes.png
@@ -68,6 +71,11 @@ flutter:
     - assets/images/games.png
     - assets/images/puzzles.png
     - assets/images/media.png
+    - assets/images/emotions.png
+    - assets/images/food.png
+    - assets/images/fruits.png
+    - assets/images/toys.png
+    - assets/images/vehicles.png
 
  # add soundependency_overrides:
     - assets/sounds/a.ogg
@@ -206,6 +214,42 @@ flutter:
     - assets/images/fruits/pear.png
     - assets/images/fruits/pineapple.png
     - assets/images/fruits/strawberry.png
+
+  # vehicles
+    - assets/images/vehicles/bicycle.png
+    - assets/images/vehicles/boat.png
+    - assets/images/vehicles/bus.png
+    - assets/images/vehicles/car.png
+    - assets/images/vehicles/helicopter.png
+    - assets/images/vehicles/plane.png
+    - assets/images/vehicles/scooter.png
+    - assets/images/vehicles/ship.png
+    - assets/images/vehicles/train.png
+    - assets/images/vehicles/truck.png
+    
+  # toys
+    - assets/images/toys/ball.png
+    - assets/images/toys/boat.png
+    - assets/images/toys/car.png
+    - assets/images/toys/doll.png
+    - assets/images/toys/kite.png
+    - assets/images/toys/plane.png
+    - assets/images/toys/puzzle.png
+    - assets/images/toys/robot.png
+    - assets/images/toys/teddy.png
+    - assets/images/toys/train.png
+
+  # emotions
+    - assets/images/emotions/angry.png
+    - assets/images/emotions/excited.png
+    - assets/images/emotions/happy.png
+    - assets/images/emotions/love.png
+    - assets/images/emotions/sad.png
+    - assets/images/emotions/scared.png
+    - assets/images/emotions/shy.png
+    - assets/images/emotions/sleepy.png
+    - assets/images/emotions/surprised.png
+    - assets/images/emotions/tired.png
     
     # poems
     - assets/sounds/poems/twinkle.ogg

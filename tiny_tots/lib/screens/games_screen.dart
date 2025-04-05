@@ -1,8 +1,8 @@
 import 'dart:math';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:confetti/confetti.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 void main() => runApp(MaterialApp(home: GamesHomeScreen()));
 
@@ -508,21 +508,55 @@ class AnimalGameScreen extends StatefulWidget {
 }
 
 class _AnimalGameScreenState extends State<AnimalGameScreen> {
-  final AudioPlayer _player = AudioPlayer();
-  final Map<String, String> animals = {
-    'Lion': 'roar.mp3',
-    'Cow': 'moo.mp3',
-    'Duck': 'quack.mp3',
-    'Dog': 'bark.mp3',
+  final FlutterTts _tts = FlutterTts();
+  final Map<String, String> animalSounds = {
+    'Lion': 'Roarrr',
+    'Cow': 'Muuu',
+    'Duck': 'Quack',
+    'Dog': 'Bhau',
+    'Cat': 'Meow',
+    'Elephant': 'hhmm',
+    'Sheep': 'Baa',
+    'Horse': 'Neigh',
+    'Frog': 'Ribbit',
   };
-  String? guessedAnimal;
 
-  Future<void> _playSound(String sound) async {
-    await _player.play(AssetSource('sounds/animals/$sound'));
+  String? guessedAnimal;
+  String? correctAnimal;
+
+  @override
+  void initState() {
+    super.initState();
+    _tts.setLanguage("en-US");
+    _tts.setPitch(1.0);
+    _tts.setSpeechRate(0.5);
+    _tts.setVolume(1.0);
+    _pickRandomAnimal();
+  }
+
+  void _pickRandomAnimal() {
+    final keys = animalSounds.keys.toList();
+    final random = Random();
+    correctAnimal = keys[random.nextInt(keys.length)];
+  }
+
+  Future<void> _speakAnimalSound() async {
+    if (correctAnimal != null) {
+      await _tts.speak(animalSounds[correctAnimal!]!);
+    }
   }
 
   void _checkGuess(String animal) {
-    setState(() => guessedAnimal = animal);
+    setState(() {
+      guessedAnimal = animal;
+    });
+  }
+
+  void _nextRound() {
+    setState(() {
+      guessedAnimal = null;
+      _pickRandomAnimal();
+    });
   }
 
   @override
@@ -534,47 +568,61 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
         backgroundColor: Colors.purple,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Guess the animal:",
-              style: GoogleFonts.poppins(fontSize: 22)),
-            SizedBox(height: 30),
-            
-            ElevatedButton(
-              onPressed: () => _playSound(animals.values.first),
-              child: Text("Play Sound",
-                style: GoogleFonts.poppins(fontSize: 18)),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                backgroundColor: Colors.purple,
-              ),
-            ),
-            
-            SizedBox(height: 40),
-            Wrap(
-              spacing: 10,
-              children: animals.keys.map((animal) => ChoiceChip(
-                label: Text(animal),
-                selected: guessedAnimal == animal,
-                onSelected: (_) => _checkGuess(animal),
-              )).toList(),
-            ),
-            
-            if (guessedAnimal != null) ...[
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Guess the animal:",
+                  style: GoogleFonts.poppins(fontSize: 24)),
               SizedBox(height: 30),
-              Text(
-                guessedAnimal == animals.keys.first 
-                  ? "Correct! 🎉" 
-                  : "Try again!",
-                style: GoogleFonts.fredoka(
-                  fontSize: 24,
-                  color: guessedAnimal == animals.keys.first 
-                    ? Colors.green 
-                    : Colors.red,
-                )),
+              ElevatedButton(
+                onPressed: _speakAnimalSound,
+                child: Text("Play Sound",
+                    style: GoogleFonts.poppins(fontSize: 18)),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  backgroundColor: Colors.purple,
+                ),
+              ),
+              SizedBox(height: 40),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: animalSounds.keys.map((animal) {
+                  return ChoiceChip(
+                    label: Text(animal),
+                    selected: guessedAnimal == animal,
+                    onSelected: (_) => _checkGuess(animal),
+                    selectedColor: Colors.purpleAccent,
+                  );
+                }).toList(),
+              ),
+              if (guessedAnimal != null) ...[
+                SizedBox(height: 30),
+                Text(
+                  guessedAnimal == correctAnimal
+                      ? "Correct! 🎉"
+                      : "Oops! It was $correctAnimal.",
+                  style: GoogleFonts.fredoka(
+                    fontSize: 24,
+                    color: guessedAnimal == correctAnimal
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _nextRound,
+                  child: Text("Next", style: TextStyle(fontSize: 18)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ]
             ],
-          ],
+          ),
         ),
       ),
     );

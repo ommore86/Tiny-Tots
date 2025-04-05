@@ -37,14 +37,10 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
       // Animals
       {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/dog.png", "options": ["Cat", "Dog", "Bird"], "answer": "Dog", "category": "Animals"},
       {"type": "image", "question": "Who is this?", "image": "assets/images/animals/elephant.png", "options": ["Monkey", "Lion", "Elephant"], "answer": "Elephant", "category": "Animals"},
-      {"type": "sound", "question": "What animal makes this sound?", "sound": "assets/sounds/cat.mp3", "options": ["Cow", "Dog", "Cat"], "answer": "Cat", "category": "Animals"},
       {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/bird.png", "options": ["Bird", "Fish", "Snake"], "answer": "Bird", "category": "Animals"},
-      {"type": "sound", "question": "Listen and guess!", "sound": "assets/sounds/cow.mp3", "options": ["Horse", "Cow", "Sheep"], "answer": "Cow", "category": "Animals"},
       {"type": "image", "question": "Who is this?", "image": "assets/images/animals/fish.png", "options": ["Tiger", "Rabbit", "Fish"], "answer": "Fish", "category": "Animals"},
       {"type": "image", "question": "Guess the animal!", "image": "assets/images/animals/lion.png", "options": ["Bear", "Lion", "Deer"], "answer": "Lion", "category": "Animals"},
-      {"type": "sound", "question": "What animal is this?", "sound": "assets/sounds/horse.mp3", "options": ["Horse", "Pig", "Duck"], "answer": "Horse", "category": "Animals"},
       {"type": "image", "question": "Who is this?", "image": "assets/images/animals/rabbit.png", "options": ["Rabbit", "Mouse", "Fox"], "answer": "Rabbit", "category": "Animals"},
-      {"type": "sound", "question": "Listen and guess!", "sound": "assets/sounds/duck.mp3", "options": ["Goose", "Duck", "Chicken"], "answer": "Duck", "category": "Animals"},
       
       // Colors
       {"type": "image", "question": "What color is this?", "image": "assets/images/colors/red.png", "options": ["Blue", "Red", "Green"], "answer": "Red", "category": "Colors"},
@@ -107,6 +103,42 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
       {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/donut.png", "options": ["Cookie", "Donut", "Bread"], "answer": "Donut"},
       {"type": "image", "question": "What food is this?", "image": "assets/images/foods/bread.png", "options": ["Cake", "Sandwich", "Bread"], "answer": "Bread"},
       {"type": "image", "question": "Guess the food!", "image": "assets/images/foods/soup.png", "options": ["Soup", "Pasta", "Pizza"], "answer": "Soup"},
+
+      // Vehicles
+      {"type": "image", "question": "What vehicle is this?", "image": "assets/images/vehicles/car.png", "options": ["Car", "Bus", "Train"], "answer": "Car"},
+      {"type": "image", "question": "Guess the vehicle!", "image": "assets/images/vehicles/bus.png", "options": ["Bus", "Truck", "Boat"], "answer": "Bus"},
+      {"type": "image", "question": "What vehicle is this?", "image": "assets/images/vehicles/train.png", "options": ["Train", "Plane", "Car"], "answer": "Train"},
+      {"type": "image", "question": "Guess the vehicle!", "image": "assets/images/vehicles/plane.png", "options": ["Plane", "Helicopter", "Ship"], "answer": "Plane"},
+      {"type": "image", "question": "What vehicle is this?", "image": "assets/images/vehicles/boat.png", "options": ["Boat", "Bus", "Bicycle"], "answer": "Boat"},
+      {"type": "image", "question": "Guess the vehicle!", "image": "assets/images/vehicles/truck.png", "options": ["Truck", "Car", "Train"], "answer": "Truck"},
+      {"type": "image", "question": "What vehicle is this?", "image": "assets/images/vehicles/bicycle.png", "options": ["Bicycle", "Scooter", "Plane"], "answer": "Bicycle"},
+      {"type": "image", "question": "Guess the vehicle!", "image": "assets/images/vehicles/helicopter.png", "options": ["Helicopter", "Plane", "Boat"], "answer": "Helicopter"},
+      {"type": "image", "question": "What vehicle is this?", "image": "assets/images/vehicles/ship.png", "options": ["Ship", "Bus", "Truck"], "answer": "Ship"},
+      {"type": "image", "question": "Guess the vehicle!", "image": "assets/images/vehicles/scooter.png", "options": ["Scooter", "Bicycle", "Car"], "answer": "Scooter"},
+
+      // Toys
+      {"type": "image", "question": "What toy is this?", "image": "assets/images/toys/ball.png", "options": ["Ball", "Doll", "Car"], "answer": "Ball"},
+      {"type": "image", "question": "Guess the toy!", "image": "assets/images/toys/doll.png", "options": ["Doll", "Teddy", "Robot"], "answer": "Doll"},
+      {"type": "image", "question": "What toy is this?", "image": "assets/images/toys/car.png", "options": ["Car", "Plane", "Ball"], "answer": "Car"},
+      {"type": "image", "question": "Guess the toy!", "image": "assets/images/toys/teddy.png", "options": ["Teddy", "Doll", "Puzzle"], "answer": "Teddy"},
+      {"type": "image", "question": "What toy is this?", "image": "assets/images/toys/plane.png", "options": ["Plane", "Car", "Boat"], "answer": "Plane"},
+      {"type": "image", "question": "Guess the toy!", "image": "assets/images/toys/robot.png", "options": ["Robot", "Teddy", "Ball"], "answer": "Robot"},
+      {"type": "image", "question": "What toy is this?", "image": "assets/images/toys/puzzle.png", "options": ["Puzzle", "Doll", "Car"], "answer": "Puzzle"},
+      {"type": "image", "question": "Guess the toy!", "image": "assets/images/toys/boat.png", "options": ["Boat", "Plane", "Teddy"], "answer": "Boat"},
+      {"type": "image", "question": "What toy is this?", "image": "assets/images/toys/kite.png", "options": ["Kite", "Ball", "Robot"], "answer": "Kite"},
+      {"type": "image", "question": "Guess the toy!", "image": "assets/images/toys/train.png", "options": ["Train", "Car", "Puzzle"], "answer": "Train"},
+
+      // Emotions
+      {"type": "image", "question": "How does this face feel?", "image": "assets/images/emotions/happy.png", "options": ["Happy", "Sad", "Angry"], "answer": "Happy"},
+      {"type": "image", "question": "Guess the feeling!", "image": "assets/images/emotions/sad.png", "options": ["Sad", "Happy", "Scared"], "answer": "Sad"},
+      {"type": "image", "question": "How does this face feel?", "image": "assets/images/emotions/angry.png", "options": ["Angry", "Happy", "Tired"], "answer": "Angry"},
+      {"type": "image", "question": "Guess the feeling!", "image": "assets/images/emotions/scared.png", "options": ["Scared", "Sad", "Excited"], "answer": "Scared"},
+      {"type": "image", "question": "How does this face feel?", "image": "assets/images/emotions/excited.png", "options": ["Excited", "Angry", "Sleepy"], "answer": "Excited"},
+      {"type": "image", "question": "Guess the feeling!", "image": "assets/images/emotions/tired.png", "options": ["Tired", "Happy", "Sad"], "answer": "Tired"},
+      {"type": "image", "question": "How does this face feel?", "image": "assets/images/emotions/surprised.png", "options": ["Surprised", "Scared", "Angry"], "answer": "Surprised"},
+      {"type": "image", "question": "Guess the feeling!", "image": "assets/images/emotions/sleepy.png", "options": ["Sleepy", "Excited", "Happy"], "answer": "Sleepy"},
+      {"type": "image", "question": "How does this face feel?", "image": "assets/images/emotions/shy.png", "options": ["Shy", "Sad", "Tired"], "answer": "Shy"},
+      {"type": "image", "question": "Guess the feeling!", "image": "assets/images/emotions/love.png", "options": ["Love", "Angry", "Scared"], "answer": "Love"},
     ];
 
     // Shuffle all questions and take first 10

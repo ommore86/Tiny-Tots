@@ -27,6 +27,43 @@ class _PuzzlesScreenState extends State<PuzzlesScreen> {
       ],
       color: Colors.orange,
     ),
+
+    PuzzleCategory(
+      title: "Birds",
+      icon: Icons.flight,
+      puzzles: [
+        PuzzleItem(image: 'assets/images/birds/crow.png', answer: 'Crow'),
+        PuzzleItem(image: 'assets/images/birds/duck.png', answer: 'Duck'),
+        PuzzleItem(image: 'assets/images/birds/eagle.png', answer: 'Eagle'),
+        PuzzleItem(image: 'assets/images/birds/owl.png', answer: 'Owl'),
+        PuzzleItem(image: 'assets/images/birds/parrot.png', answer: 'Parrot'),
+        PuzzleItem(image: 'assets/images/birds/peacock.png', answer: 'Peacock'),
+        PuzzleItem(image: 'assets/images/birds/penguin.png', answer: 'Penguin'),
+        PuzzleItem(image: 'assets/images/birds/pegion.png', answer: 'Pegion'),
+        PuzzleItem(image: 'assets/images/birds/sparrow.png', answer: 'Sparrow'),
+        PuzzleItem(image: 'assets/images/birds/swan.png', answer: 'Swan'),
+      ],
+      color: Colors.green,
+    ),
+
+    PuzzleCategory(
+      title: "Colors",
+      icon: Icons.color_lens,
+      puzzles: [
+        PuzzleItem(image: 'assets/images/colors/black.png', answer: 'Black'),
+        PuzzleItem(image: 'assets/images/colors/blue.png', answer: 'Blue'),
+        PuzzleItem(image: 'assets/images/colors/brown.png', answer: 'Brown'),
+        PuzzleItem(image: 'assets/images/colors/green.png', answer: 'Green'),
+        PuzzleItem(image: 'assets/images/colors/orange.png', answer: 'Orange'),
+        PuzzleItem(image: 'assets/images/colors/pink.png', answer: 'Pink'),
+        PuzzleItem(image: 'assets/images/colors/purple.png', answer: 'Purple'),
+        PuzzleItem(image: 'assets/images/colors/red.png', answer: 'Red'),
+        PuzzleItem(image: 'assets/images/colors/white.png', answer: 'White'),
+        PuzzleItem(image: 'assets/images/colors/yellow.png', answer: 'Yellow'),
+      ],
+      color: Colors.purple,
+    ),
+
     PuzzleCategory(
       title: "Shapes",
       icon: Icons.shape_line,
@@ -43,6 +80,7 @@ class _PuzzlesScreenState extends State<PuzzlesScreen> {
       ],
       color: Colors.blue,
     ),
+
     PuzzleCategory(
       title: "Fruits",
       icon: Icons.apple,
@@ -59,6 +97,96 @@ class _PuzzlesScreenState extends State<PuzzlesScreen> {
         PuzzleItem(image: 'assets/images/fruits/strawberry.png', answer: 'strawberry'),
       ],
       color: Colors.green,
+    ),
+
+    PuzzleCategory(
+      title: "Numbers",
+      icon: Icons.numbers,
+      puzzles: [
+        PuzzleItem(image: 'assets/numbers/1.png', answer: 'One'),
+        PuzzleItem(image: 'assets/numbers/2.png', answer: 'Two'),
+        PuzzleItem(image: 'assets/numbers/3.png', answer: 'Three'),
+        PuzzleItem(image: 'assets/numbers/4.png', answer: 'Four'),
+        PuzzleItem(image: 'assets/numbers/5.png', answer: 'Five'),
+        PuzzleItem(image: 'assets/numbers/6.png', answer: 'Six'),
+        PuzzleItem(image: 'assets/numbers/7.png', answer: 'Seven'),
+        PuzzleItem(image: 'assets/numbers/8.png', answer: 'Eight'),
+        PuzzleItem(image: 'assets/numbers/9.png', answer: 'Nine'),
+        PuzzleItem(image: 'assets/numbers/10.png', answer: 'Ten'),
+      ],
+      color: Colors.yellow,
+    ),
+
+    PuzzleCategory(
+      title: "Food",
+      icon: Icons.fastfood,
+      puzzles: [
+        PuzzleItem(image: 'assets/images/foods/bread.png', answer: 'Bread'),
+        PuzzleItem(image: 'assets/images/foods/burger.png', answer: 'Burger'),
+        PuzzleItem(image: 'assets/images/foods/cake.png', answer: 'Cake'),
+        PuzzleItem(image: 'assets/images/foods/cookie.png', answer: 'Cookie'),
+        PuzzleItem(image: 'assets/images/foods/donut.png', answer: 'Donut'),
+        PuzzleItem(image: 'assets/images/foods/icecream.png', answer: 'Ice Cream'),
+        PuzzleItem(image: 'assets/images/foods/pasta.png', answer: 'Pasta'),
+        PuzzleItem(image: 'assets/images/foods/pizza.png', answer: 'Pizza'),
+        PuzzleItem(image: 'assets/images/foods/sandwich.png', answer: 'Sandwich'),
+        PuzzleItem(image: 'assets/images/foods/soup.png', answer: 'Soup'),
+      ],
+      color: Colors.brown,
+    ),
+
+    PuzzleCategory(
+      title: "Vehicles",
+      icon: Icons.directions_car,
+      puzzles: [
+        PuzzleItem(image: 'assets/images/vehicles/bicycle.png', answer: 'Bicycle'),
+        PuzzleItem(image: 'assets/images/vehicles/boat.png', answer: 'Boat'),
+        PuzzleItem(image: 'assets/images/vehicles/bus.png', answer: 'Bus'),
+        PuzzleItem(image: 'assets/images/vehicles/car.png', answer: 'Car'),
+        PuzzleItem(image: 'assets/images/vehicles/helicopter.png', answer: 'Helicopter'),
+        PuzzleItem(image: 'assets/images/vehicles/plane.png', answer: 'Plane'),
+        PuzzleItem(image: 'assets/images/vehicles/scooter.png', answer: 'Scooter'),
+        PuzzleItem(image: 'assets/images/vehicles/ship.png', answer: 'ship'),
+        PuzzleItem(image: 'assets/images/vehicles/train.png', answer: 'Train'),
+        PuzzleItem(image: 'assets/images/vehicles/truck.png', answer: 'Truck'),
+      ],
+      color: Colors.red,
+    ),
+
+    PuzzleCategory(
+      title: "Toys",
+      icon: Icons.toys,
+      puzzles: [
+        PuzzleItem(image: 'assets/images/toys/ball.png', answer: 'Ball'),
+        PuzzleItem(image: 'assets/images/toys/boat.png', answer: 'Boat'),
+        PuzzleItem(image: 'assets/images/toys/car.png', answer: 'Car'),
+        PuzzleItem(image: 'assets/images/toys/doll.png', answer: 'Doll'),
+        PuzzleItem(image: 'assets/images/toys/kite.png', answer: 'Kite'),
+        PuzzleItem(image: 'assets/images/toys/plane.png', answer: 'Plane'),
+        PuzzleItem(image: 'assets/images/toys/puzzle.png', answer: 'Puzzle'),
+        PuzzleItem(image: 'assets/images/toys/robot.png', answer: 'Robot'),
+        PuzzleItem(image: 'assets/images/toys/teddy.png', answer: 'Teddy Bear'),
+        PuzzleItem(image: 'assets/images/toys/train.png', answer: 'Train'),
+      ],
+      color: Colors.teal,
+    ),
+
+    PuzzleCategory(
+      title: "Emotions",
+      icon: Icons.emoji_emotions,
+      puzzles: [
+        PuzzleItem(image: 'assets/images/emotions/happy.png', answer: 'Happy'),
+        PuzzleItem(image: 'assets/images/emotions/sad.png', answer: 'Sad'),
+        PuzzleItem(image: 'assets/images/emotions/angry.png', answer: 'Angry'),
+        PuzzleItem(image: 'assets/images/emotions/surprised.png', answer: 'Surprised'),
+        PuzzleItem(image: 'assets/images/emotions/love.png', answer: 'Love'),
+        PuzzleItem(image: 'assets/images/emotions/excited.png', answer: 'Excited'),
+        PuzzleItem(image: 'assets/images/emotions/scared.png', answer: 'Scared'),
+        PuzzleItem(image: 'assets/images/emotions/tired.png', answer: 'Tired'),
+        PuzzleItem(image: 'assets/images/emotions/sleepy.png', answer: 'Sleepy'),
+        PuzzleItem(image: 'assets/images/emotions/shy.png', answer: 'Shy'),
+      ],
+      color: Colors.cyan,
     ),
   ];
 

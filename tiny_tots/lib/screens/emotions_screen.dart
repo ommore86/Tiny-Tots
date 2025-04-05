@@ -4,57 +4,56 @@ import 'package:flutter_tts/flutter_tts.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: BirdsScreen(),
+    home: EmotionsScreen(),
   ));
 }
 
-class BirdsScreen extends StatelessWidget {
-  final List<Map<String, String>> birdsList = [
-    {'name': 'Sparrow', 'image': 'assets/images/birds/sparrow.png'},
-    {'name': 'Parrot', 'image': 'assets/images/birds/parrot.png'},
-    {'name': 'Eagle', 'image': 'assets/images/birds/eagle.png'},
-    {'name': 'Peacock', 'image': 'assets/images/birds/peacock.png'},
-    {'name': 'Owl', 'image': 'assets/images/birds/owl.png'},
-    {'name': 'Penguin', 'image': 'assets/images/birds/penguin.png'},
-    {'name': 'Pigeon', 'image': 'assets/images/birds/pigeon.png'},
-    {'name': 'Crow', 'image': 'assets/images/birds/crow.png'},
-    {'name': 'Swan', 'image': 'assets/images/birds/swan.png'},
-    {'name': 'Duck', 'image': 'assets/images/birds/duck.png'},
+class EmotionsScreen extends StatelessWidget {
+  final List<Map<String, String>> emotionsList = [
+    {'name': 'Angry', 'image': 'assets/images/emotions/angry.png'},
+    {'name': 'Excited', 'image': 'assets/images/emotions/excited.png'},
+    {'name': 'Happy', 'image': 'assets/images/emotions/happy.png'},
+    {'name': 'Love', 'image': 'assets/images/emotions/love.png'},
+    {'name': 'Sad', 'image': 'assets/images/emotions/sad.png'},
+    {'name': 'Scared', 'image': 'assets/images/emotions/scared.png'},
+    {'name': 'Shy', 'image': 'assets/images/emotions/shy.png'},
+    {'name': 'Sleepy', 'image': 'assets/images/emotions/sleepy.png'},
+    {'name': 'Surprised', 'image': 'assets/images/emotions/surprised.png'},
+    {'name': 'Tired', 'image': 'assets/images/emotions/tired.png'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Birds"),
-        backgroundColor: Colors.blueAccent,
-        centerTitle: true,
+        title: Text("Emotions", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.lightBlue.shade100],
+            colors: [Colors.pink.shade100, Colors.pink.shade300],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
         child: GridView.builder(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(12),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
           ),
-          itemCount: birdsList.length,
+          itemCount: emotionsList.length,
           itemBuilder: (context, index) {
-            return _buildBirdCard(context, birdsList[index], index);
+            return _buildEmotionCard(context, emotionsList[index], index);
           },
         ),
       ),
     );
   }
 
-  Widget _buildBirdCard(BuildContext context, Map<String, String> birdData, int index) {
+  Widget _buildEmotionCard(BuildContext context, Map<String, String> emotionData, int index) {
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -65,8 +64,8 @@ class BirdsScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BirdDetailScreen(
-                birdsList: birdsList,
+              builder: (context) => EmotionDetailScreen(
+                emotionsList: emotionsList,
                 currentIndex: index,
               ),
             ),
@@ -76,13 +75,13 @@ class BirdsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Hero(
-              tag: birdData['name']!,
-              child: Image.asset(birdData['image']!, width: 100, height: 100),
+              tag: emotionData['name']!,
+              child: Image.asset(emotionData['image']!, width: 100, height: 100),
             ),
             SizedBox(height: 10),
             Text(
-              birdData['name']!,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.blueGrey),
+              emotionData['name']!,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.pink[900]),
             ),
           ],
         ),
@@ -91,41 +90,40 @@ class BirdsScreen extends StatelessWidget {
   }
 }
 
-class BirdDetailScreen extends StatefulWidget {
-  final List<Map<String, String>> birdsList;
+class EmotionDetailScreen extends StatefulWidget {
+  final List<Map<String, String>> emotionsList;
   final int currentIndex;
 
-  BirdDetailScreen({Key? key, required this.birdsList, required this.currentIndex}) : super(key: key);
+  EmotionDetailScreen({Key? key, required this.emotionsList, required this.currentIndex}) : super(key: key);
 
   @override
-  _BirdDetailScreenState createState() => _BirdDetailScreenState();
+  _EmotionDetailScreenState createState() => _EmotionDetailScreenState();
 }
 
-class _BirdDetailScreenState extends State<BirdDetailScreen> {
+class _EmotionDetailScreenState extends State<EmotionDetailScreen> {
   FlutterTts flutterTts = FlutterTts();
 
-  Future<void> _speakWord(String text) async {
+  Future<void> _speakSpelling(String text) async {
     await flutterTts.setLanguage("en-US");
-    await flutterTts.setSpeechRate(0.4); // Slower for kids
-    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.4);
+    await flutterTts.setPitch(1.2);
     await flutterTts.setVolume(1.0);
-    await flutterTts.speak(text); 
+    await flutterTts.speak(text);
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> birdData = widget.birdsList[widget.currentIndex];
+    Map<String, String> emotionData = widget.emotionsList[widget.currentIndex];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(birdData['name']!),
-        backgroundColor: Colors.blueAccent,
-        centerTitle: true,
+        title: Text(emotionData['name']!, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.lightBlue.shade100],
+            colors: [Colors.pink.shade50, Colors.pink.shade200],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -135,29 +133,28 @@ class _BirdDetailScreenState extends State<BirdDetailScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Hero(
-                tag: birdData['name']!,
-                child: Image.asset(birdData['image']!, width: 250, height: 250),
+                tag: emotionData['name']!,
+                child: Image.asset(emotionData['image']!, width: 200, height: 200),
               ),
               SizedBox(height: 20),
               Text(
-                birdData['name']!,
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                emotionData['name']!,
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.pink[900]),
               ),
               SizedBox(height: 20),
 
-              // Play Sound Button (Pronounce Bird Name)
               ElevatedButton.icon(
-                onPressed: () => _speakWord(birdData['name']!),
+                onPressed: () => _speakSpelling(emotionData['name']!),
                 icon: Icon(Icons.volume_up, color: Colors.white),
                 label: Text("Play Spelling"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Colors.pinkAccent,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
 
-              SizedBox(height: 40),
+              SizedBox(height: 30),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -168,8 +165,8 @@ class _BirdDetailScreenState extends State<BirdDetailScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BirdDetailScreen(
-                              birdsList: widget.birdsList,
+                            builder: (context) => EmotionDetailScreen(
+                              emotionsList: widget.emotionsList,
                               currentIndex: widget.currentIndex - 1,
                             ),
                           ),
@@ -177,16 +174,16 @@ class _BirdDetailScreenState extends State<BirdDetailScreen> {
                       },
                       icon: Icon(Icons.arrow_back),
                       label: Text("Previous"),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
                     ),
-                  if (widget.currentIndex < widget.birdsList.length - 1)
+                  if (widget.currentIndex < widget.emotionsList.length - 1)
                     ElevatedButton.icon(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BirdDetailScreen(
-                              birdsList: widget.birdsList,
+                            builder: (context) => EmotionDetailScreen(
+                              emotionsList: widget.emotionsList,
                               currentIndex: widget.currentIndex + 1,
                             ),
                           ),
@@ -194,7 +191,7 @@ class _BirdDetailScreenState extends State<BirdDetailScreen> {
                       },
                       icon: Icon(Icons.arrow_forward),
                       label: Text("Next"),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
                     ),
                 ],
               ),

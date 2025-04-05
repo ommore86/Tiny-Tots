@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 
 import '../login_screen.dart';
-import 'conduct_test_screen.dart';
+// import 'conduct_test_screen.dart';
 import 'track_progress_screen.dart';
 import 'student_list_screen.dart';
 import 'mark_attendance_screen.dart';
@@ -126,12 +126,12 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
                       Colors.green,
                       () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrackProgressScreen())),
                     ),
-                    _buildDashboardCard(
-                      "Conduct Test",
-                      Icons.assignment,
-                      Colors.blue,
-                      () => Navigator.push(context, MaterialPageRoute(builder: (context) => ConductTestScreen())),
-                    ),
+                    // _buildDashboardCard(
+                    //   "Conduct Test",
+                    //   Icons.assignment,
+                    //   Colors.blue,
+                    //   () => Navigator.push(context, MaterialPageRoute(builder: (context) => ConductTestScreen())),
+                    // ),
                     _buildDashboardCard(
                       "Mark Attendance",
                       Icons.check_circle,

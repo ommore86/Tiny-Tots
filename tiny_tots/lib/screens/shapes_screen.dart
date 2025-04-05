@@ -148,7 +148,7 @@ class _ShapeDetailScreenState extends State<ShapeDetailScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
             child: Text(
-              "Play Sound",
+              "Play Spelling",
               style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),

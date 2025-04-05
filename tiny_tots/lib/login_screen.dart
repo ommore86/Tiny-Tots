@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // App Logo or Illustration
-                Image.asset("assets/splash_logo.png", height: 140),
+                Image.asset("assets/images/splash_logo.png", height: 140),
 
                 SizedBox(height: 20),
 
