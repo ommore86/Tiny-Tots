@@ -35,12 +35,59 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
     {'name': 'Zebra', 'image': 'assets/images/animals/zebra.png'},
 
     //Birds
+    {'name': 'Crow', 'image': 'assets/images/birds/crow.png'},
+    {'name': 'Duck', 'image': 'assets/images/birds/duck.png'},
     {'name': 'Eagle', 'image': 'assets/images/birds/eagle.png'},
+    {'name': 'Owl', 'image': 'assets/images/birds/owl.png'},
     {'name': 'Parrot', 'image': 'assets/images/birds/parrot.png'},
+    {'name': 'Peacock', 'image': 'assets/images/birds/peacock.png'},
     {'name': 'Penguin', 'image': 'assets/images/birds/penguin.png'},
     {'name': 'Sparrow', 'image': 'assets/images/birds/sparrow.png'},
-    {'name': 'Peacock', 'image': 'assets/images/birds/peacock.png'},
-    {'name': 'Owl', 'image': 'assets/images/birds/owl.png'},
+    {'name': 'Swan', 'image': 'assets/images/birds/swan.png'},
+
+    // Colors
+    {'name': 'Red', 'image': 'assets/images/colors/red.png'},
+    {'name': 'Blue', 'image': 'assets/images/colors/blue.png'},
+    {'name': 'Green', 'image': 'assets/images/colors/green.png'},
+    {'name': 'Yellow', 'image': 'assets/images/colors/yellow.png'},
+    {'name': 'Purple', 'image': 'assets/images/colors/purple.png'},
+    {'name': 'Orange', 'image': 'assets/images/colors/orange.png'},
+    {'name': 'Pink', 'image': 'assets/images/colors/pink.png'},
+    {'name': 'Brown', 'image': 'assets/images/colors/brown.png'},
+    {'name': 'Black', 'image': 'assets/images/colors/black.png'},
+    {'name': 'White', 'image': 'assets/images/colors/white.png'},
+
+    // Shapes
+    {'name': 'Circle', 'image': 'assets/images/shapes/circle.png'},
+    {'name': 'Square', 'image': 'assets/images/shapes/square.png'},
+    {'name': 'Triangle', 'image': 'assets/images/shapes/triangle.png'},
+    {'name': 'Rectangle', 'image': 'assets/images/shapes/rectangle.png'},
+    {'name': 'Oval', 'image': 'assets/images/shapes/oval.png'},
+    {'name': 'Diamond', 'image': 'assets/images/shapes/diamond.png'},
+    {'name': 'Star', 'image': 'assets/images/shapes/star.png'},
+    {'name': 'Pentagon', 'image': 'assets/images/shapes/pentagon.png'},
+    {'name': 'Hexagon', 'image': 'assets/images/shapes/hexagon.png'},
+
+    // Toys
+    {'name': 'Car', 'image': 'assets/images/toys/car.png'},
+    {'name': 'Doll', 'image': 'assets/images/toys/doll.png'},
+    {'name': 'Ball', 'image': 'assets/images/toys/ball.png'},
+    {'name': 'Teddy Bear', 'image': 'assets/images/toys/teddy.png'},
+    {'name': 'Puzzle', 'image': 'assets/images/toys/puzzle.png'},
+    {'name': 'Train', 'image': 'assets/images/toys/train.png'},
+    {'name': 'Robot', 'image': 'assets/images/toys/robot.png'},
+
+    // Vehicles
+    {'name': 'Bicycle', 'image': 'assets/images/vehicles/bicycle.png'},
+    {'name': 'boat', 'image': 'assets/images/vehicles/boat.png'},
+    {'name': 'Bus', 'image': 'assets/images/vehicles/bus.png'},
+    {'name': 'Car', 'image': 'assets/images/vehicles/car.png'},
+    {'name': 'Helicopter', 'image': 'assets/images/vehicles/helicopter.png'},
+    {'name': 'Airplane', 'image': 'assets/images/vehicles/plane.png'},
+    {'name': 'Scooter', 'image': 'assets/images/vehicles/scooter.png'},    
+    {'name': 'Ship', 'image': 'assets/images/vehicles/ship.png'},    
+    {'name': 'Truck', 'image': 'assets/images/vehicles/truck.png'},
+    {'name': 'Train', 'image': 'assets/images/vehicles/train.png'},
   ];
 
   List<_CardItem> nameCards = [];
