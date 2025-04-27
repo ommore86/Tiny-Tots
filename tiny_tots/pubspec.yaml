@@ -190,6 +190,17 @@ flutter:
     - assets/images/colors/yellow.png
     - assets/images/colors/white.png
 
+  # puzzle_colors
+    - assets/images/puzzle_colors/black.png
+    - assets/images/puzzle_colors/blue.png
+    - assets/images/puzzle_colors/brown.png
+    - assets/images/puzzle_colors/green.png
+    - assets/images/puzzle_colors/pink.png
+    - assets/images/puzzle_colors/purple.png
+    - assets/images/puzzle_colors/red.png
+    - assets/images/puzzle_colors/yellow.png
+    - assets/images/puzzle_colors/white.png
+
   # foods
     - assets/images/foods/bread.png
     - assets/images/foods/burger.png

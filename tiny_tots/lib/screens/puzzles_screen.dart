@@ -46,16 +46,15 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
     {'name': 'Swan', 'image': 'assets/images/birds/swan.png'},
 
     // Colors
-    {'name': 'Red', 'image': 'assets/images/colors/red.png'},
-    {'name': 'Blue', 'image': 'assets/images/colors/blue.png'},
-    {'name': 'Green', 'image': 'assets/images/colors/green.png'},
-    {'name': 'Yellow', 'image': 'assets/images/colors/yellow.png'},
-    {'name': 'Purple', 'image': 'assets/images/colors/purple.png'},
-    {'name': 'Orange', 'image': 'assets/images/colors/orange.png'},
-    {'name': 'Pink', 'image': 'assets/images/colors/pink.png'},
-    {'name': 'Brown', 'image': 'assets/images/colors/brown.png'},
-    {'name': 'Black', 'image': 'assets/images/colors/black.png'},
-    {'name': 'White', 'image': 'assets/images/colors/white.png'},
+    {'name': 'Red', 'image': 'assets/images/puzzle_colors/red.png'},
+    {'name': 'Blue', 'image': 'assets/images/puzzle_colors/blue.png'},
+    {'name': 'Green', 'image': 'assets/images/puzzle_colors/green.png'},
+    {'name': 'Yellow', 'image': 'assets/images/puzzle_colors/yellow.png'},
+    {'name': 'Purple', 'image': 'assets/images/puzzle_colors/purple.png'},
+    {'name': 'Pink', 'image': 'assets/images/puzzle_colors/pink.png'},
+    {'name': 'Brown', 'image': 'assets/images/puzzle_colors/brown.png'},
+    {'name': 'Black', 'image': 'assets/images/puzzle_colors/black.png'},
+    {'name': 'White', 'image': 'assets/images/puzzle_colors/white.png'},
 
     // Shapes
     {'name': 'Circle', 'image': 'assets/images/shapes/circle.png'},
@@ -90,22 +89,35 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
     {'name': 'Train', 'image': 'assets/images/vehicles/train.png'},
   ];
 
+  late final List<Map<String, String>> allItems;
   List<_CardItem> nameCards = [];
   List<_CardItem> imageCards = [];
   bool allMatched = false;
+  List<Map<String, String>> selectedItems = [];
 
   @override
   void initState() {
     super.initState();
-    _loadCards();
+    allItems = List<Map<String, String>>.from(currentItems);
+    _loadNewSet();
   }
 
-  void _loadCards() {
-    nameCards = currentItems.map((item) => _CardItem(text: item['name']!)).toList();
-    imageCards = currentItems.map((item) => _CardItem(text: item['name']!, image: item['image']!)).toList();
+  void _loadNewSet() {
+    final random = Random();
 
-    nameCards.shuffle(Random());
-    imageCards.shuffle(Random());
+    // Shuffle the list and take 6 random items
+    selectedItems = List<Map<String, String>>.from(allItems)..shuffle(random);
+    selectedItems = selectedItems.take(6).toList();
+
+    nameCards = selectedItems.map((item) => _CardItem(text: item['name']!)).toList();
+    imageCards = selectedItems.map((item) => _CardItem(text: item['name']!, image: item['image']!)).toList();
+
+    nameCards.shuffle(random);
+    imageCards.shuffle(random);
+
+    setState(() {
+      allMatched = false;
+    });
   }
 
   void _checkAllMatched() {
@@ -137,7 +149,7 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
               itemBuilder: (context, index) {
                 final card = imageCards[index];
                 return Draggable<String>(
-                  data: card.text!, // Drag the "name" (not the image)
+                  data: card.text!,
                   feedback: Material(
                     child: Image.asset(card.image!, width: 80),
                   ),
@@ -177,7 +189,7 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
                       decoration: BoxDecoration(
                         color: card.matched ? Colors.green[200] : Colors.white,
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 5)],
+                        boxShadow: [const BoxShadow(color: Colors.black26, blurRadius: 5)],
                       ),
                       alignment: Alignment.center,
                       child: Text(
@@ -197,12 +209,7 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
               padding: const EdgeInsets.all(12),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-                onPressed: () {
-                  setState(() {
-                    _loadCards();
-                    allMatched = false;
-                  });
-                },
+                onPressed: _loadNewSet,
                 child: const Text('Next', style: TextStyle(fontSize: 18)),
               ),
             )
@@ -215,7 +222,7 @@ class _MatchingPairsPuzzleState extends State<MatchingPairsPuzzle> {
       decoration: BoxDecoration(
         color: card.matched ? Colors.green[200] : Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 5)],
+        boxShadow: [const BoxShadow(color: Colors.black26, blurRadius: 5)],
       ),
       padding: const EdgeInsets.all(8),
       child: card.image != null
