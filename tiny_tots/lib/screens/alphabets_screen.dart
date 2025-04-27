@@ -3,10 +3,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: AlphabetsScreen(),
-  ));
+  runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: AlphabetsScreen()),
+  );
 }
 
 class AlphabetsScreen extends StatelessWidget {
@@ -16,8 +15,10 @@ class AlphabetsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Learn Alphabets", 
-          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text(
+          "Learn Alphabets",
+          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.pinkAccent,
       ),
       backgroundColor: Colors.pink[50],
@@ -25,7 +26,7 @@ class AlphabetsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, 
+            crossAxisCount: 4,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
@@ -44,7 +45,8 @@ class AlphabetsScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AlphabetDetailScreen(letter: letter, index: index),
+            builder:
+                (context) => AlphabetDetailScreen(letter: letter, index: index),
           ),
         );
       },
@@ -64,9 +66,9 @@ class AlphabetsScreen extends StatelessWidget {
             child: Text(
               letter.toUpperCase(),
               style: GoogleFonts.fredoka(
-                fontSize: 40, 
-                color: Colors.white, 
-                fontWeight: FontWeight.bold
+                fontSize: 40,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -96,18 +98,67 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
 
   final List<String> alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
+  final Map<String, String> phoneticSounds = {
+    'a': 'ah ah apple. A for apple',
+    'b': 'bah bah ball. B for ball',
+    'c': 'kuh kuh cat. C for cat',
+    'd': 'duh duh dog. D for dog',
+    'e': 'e e elephant. E for elephant',
+    'f': 'fa fa fish. F for fish',
+    'g': 'gah gah goat. G for goat',
+    'h': 'ha ha horse. H for horse',
+    'i': 'i i ice cream. I for ice cream',
+    'j': 'juh juh joker. J for joker',
+    'k': 'kuh kuh kite. K for kite',
+    'l': 'la la lion. L for lion',
+    'm': 'ma ma monkey. M for monkey',
+    'n': 'nuh nuh nest. N for nest',
+    'o': 'awh awh orange. O for orange',
+    'p': 'puh puh panda. P for panda',
+    'q': 'kwuh kwuh queen. Q for queen',
+    'r': 'ruh ruh rabbit. R for rabbit',
+    's': 'sah sah sun. S for sun',
+    't': 'tuh tuh tiger. T for tiger',
+    'u': 'uhh uhh umbrella. U for umbrella',
+    'v': 'vuh vuh violin. V for violin',
+    'w': 'wuh wuh watch. W for watch',
+    'x': 'xah xah xylophone. X for xylophone',
+    'y': 'yuh yuh yacht. Y for yacht',
+    'z': 'zah zah zebra. Z for zebra',
+  };
+
   final Map<String, String> alphabetExamples = {
-    'a': 'Apple', 'b': 'Ball', 'c': 'Cat', 'd': 'Dog', 'e': 'Elephant',
-    'f': 'Fish', 'g': 'Guitar', 'h': 'Hat', 'i': 'Ice Cream', 'j': 'Jaguar',
-    'k': 'Kite', 'l': 'Lion', 'm': 'Monkey', 'n': 'Nest', 'o': 'Orange',
-    'p': 'Panda', 'q': 'Queen', 'r': 'Rabbit', 's': 'Sun', 't': 'Tiger',
-    'u': 'Umbrella', 'v': 'Violin', 'w': 'Whale', 'x': 'Xylophone',
-    'y': 'Yarn', 'z': 'Zebra',
+    'a': 'Apple',
+    'b': 'Ball',
+    'c': 'Cat',
+    'd': 'Dog',
+    'e': 'Elephant',
+    'f': 'Fish',
+    'g': 'Goat',
+    'h': 'Horse',
+    'i': 'Ice Cream',
+    'j': 'Joker',
+    'k': 'Kite',
+    'l': 'Lion',
+    'm': 'Monkey',
+    'n': 'Nest',
+    'o': 'Orange',
+    'p': 'Panda',
+    'q': 'Queen',
+    'r': 'Rabbit',
+    's': 'Sun',
+    't': 'Tiger',
+    'u': 'Umbrella',
+    'v': 'Violin',
+    'w': 'Watch',
+    'x': 'Xylophone',
+    'y': 'Yacht',
+    'z': 'Zebra',
   };
 
   final Map<String, String> alphabetImages = {
     for (var letter in 'abcdefghijklmnopqrstuvwxyz'.split(''))
-      letter: 'assets/images/Letter_${letter}.png'
+      letter: 'assets/images/Letter_${letter}.png',
   };
 
   @override
@@ -124,10 +175,10 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
 
   Future<void> _initTts() async {
     _flutterTts = FlutterTts();
-    
+
     await _flutterTts.setLanguage('en-US');
-    await _flutterTts.setSpeechRate(0.4); // Slower for kids
-    await _flutterTts.setPitch(1.2); // Higher pitch
+    await _flutterTts.setSpeechRate(0.2); // Slower for kids
+    await _flutterTts.setPitch(1.0); // Higher pitch
     await _flutterTts.setVolume(1.0);
 
     _flutterTts.setStartHandler(() {
@@ -143,11 +194,12 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
     });
   }
 
-  Future<void> _speak(String text) async {
+  Future<void> _speak(String letter) async {
     if (_isSpeaking) {
       await _flutterTts.stop();
     }
-    await _flutterTts.speak(text);
+    String sound = phoneticSounds[letter.toLowerCase()] ?? letter;
+    await _flutterTts.speak(sound);
   }
 
   @override
@@ -155,8 +207,10 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        title: Text("Letter ${widget.letter.toUpperCase()}", 
-          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text(
+          "Letter ${widget.letter.toUpperCase()}",
+          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.pinkAccent,
       ),
       body: Column(
@@ -166,9 +220,9 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
           Text(
             widget.letter.toUpperCase(),
             style: GoogleFonts.fredoka(
-              fontSize: 80, 
-              fontWeight: FontWeight.bold, 
-              color: Colors.pink
+              fontSize: 80,
+              fontWeight: FontWeight.bold,
+              color: Colors.pink,
             ),
           ),
           SizedBox(height: 20),
@@ -186,8 +240,9 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
               width: 150,
               height: 150,
               fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => 
-                Icon(Icons.image_not_supported, size: 60),
+              errorBuilder:
+                  (context, error, stackTrace) =>
+                      Icon(Icons.image_not_supported, size: 60),
             ),
           ),
           SizedBox(height: 20),
@@ -196,9 +251,9 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
           Text(
             '${alphabetExamples[widget.letter]} is for ${widget.letter.toUpperCase()}',
             style: GoogleFonts.poppins(
-              fontSize: 24, 
-              fontWeight: FontWeight.bold, 
-              color: Colors.black87
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
             textAlign: TextAlign.center,
           ),
@@ -208,25 +263,24 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-              backgroundColor: _isSpeaking ? Colors.pink[300] : Colors.pinkAccent,
+              backgroundColor:
+                  _isSpeaking ? Colors.pink[300] : Colors.pinkAccent,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20)),
+                borderRadius: BorderRadius.circular(20),
+              ),
             ),
             onPressed: () => _speak(widget.letter),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  _isSpeaking ? Icons.volume_off : Icons.volume_up, 
-                  color: Colors.white
+                  _isSpeaking ? Icons.volume_off : Icons.volume_up,
+                  color: Colors.white,
                 ),
                 SizedBox(width: 8),
                 Text(
-                  _isSpeaking ? "Speaking..." : "Play Sound", 
-                  style: GoogleFonts.poppins(
-                    fontSize: 18, 
-                    color: Colors.white
-                  )
+                  _isSpeaking ? "Speaking..." : "Play Sound",
+                  style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
                 ),
               ],
             ),
@@ -245,10 +299,11 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AlphabetDetailScreen(
-                          letter: alphabets[widget.index - 1],
-                          index: widget.index - 1,
-                        ),
+                        builder:
+                            (context) => AlphabetDetailScreen(
+                              letter: alphabets[widget.index - 1],
+                              index: widget.index - 1,
+                            ),
                       ),
                     );
                   },
@@ -263,10 +318,11 @@ class _AlphabetDetailScreenState extends State<AlphabetDetailScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AlphabetDetailScreen(
-                          letter: alphabets[widget.index + 1],
-                          index: widget.index + 1,
-                        ),
+                        builder:
+                            (context) => AlphabetDetailScreen(
+                              letter: alphabets[widget.index + 1],
+                              index: widget.index + 1,
+                            ),
                       ),
                     );
                   },
