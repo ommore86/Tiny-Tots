@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'settings_screen.dart';
-// import 'alphabets_screen.dart';
-// import 'numbers_screen.dart';
-// import 'shapes_screen.dart';
-// import 'colors_screen.dart';
-// import 'animals_screen.dart';
-// import 'birds_screen.dart';
 import 'poems_screen.dart';
 import 'exercises_screen.dart';
 import 'games_screen.dart';
 import 'puzzles_screen.dart';
-// import 'fruits_screen.dart';
-// import 'food_screen.dart';
-// import 'vehicles_screen.dart';
-// import 'toys_screen.dart';
-// import 'emotions_screen.dart';
 import 'learning_page.dart'; 
 
 class HomeScreen extends StatelessWidget {

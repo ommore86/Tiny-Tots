@@ -13,12 +13,16 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
   String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   Future<void> _markAttendance(String studentId, String status) async {
-    await _firestore.collection("attendance").doc(studentId).collection("records").doc(currentDate).set({
-      "status": status,
-      "timestamp": FieldValue.serverTimestamp(),
-    });
-    setState(() {});
-  }
+  await _firestore
+      .collection("attendance")
+      .doc(studentId)
+      .collection("records")
+      .doc(currentDate)
+      .set({
+    "status": status,
+    "timestamp": FieldValue.serverTimestamp(),
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -64,34 +68,42 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
                     title: Text(name, style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18)),
                     subtitle: Text("Tap to view attendance history", style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey[700])),
                     children: [
-                      FutureBuilder<QuerySnapshot>(
-                        future: _firestore.collection("attendance").doc(studentId).collection("records").get(),
-                        builder: (context, historySnapshot) {
-                          if (!historySnapshot.hasData) return Center(child: CircularProgressIndicator());
+                      StreamBuilder<QuerySnapshot>(
+  stream: _firestore
+      .collection("attendance")
+      .doc(studentId)
+      .collection("records")
+      .orderBy('timestamp', descending: true) // show latest first
+      .snapshots(),
+  builder: (context, historySnapshot) {
+    if (historySnapshot.connectionState == ConnectionState.waiting) {
+      return Center(child: CircularProgressIndicator());
+    }
 
-                          var history = historySnapshot.data!.docs;
-                          if (history.isEmpty) {
-                            return Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text("No attendance records yet.", style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey)),
-                            );
-                          }
+    if (!historySnapshot.hasData || historySnapshot.data!.docs.isEmpty) {
+      return Padding(
+        padding: EdgeInsets.all(10),
+        child: Text("No attendance records yet.", style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey)),
+      );
+    }
 
-                          return Column(
-                            children: history.map((doc) {
-                              var data = doc.data() as Map<String, dynamic>;
-                              return ListTile(
-                                leading: Icon(
-                                  data["status"] == "Present" ? Icons.check_circle : Icons.cancel,
-                                  color: data["status"] == "Present" ? Colors.green : Colors.red,
-                                ),
-                                title: Text(doc.id, style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
-                                subtitle: Text(data["status"], style: GoogleFonts.poppins(color: Colors.black87)),
-                              );
-                            }).toList(),
-                          );
-                        },
-                      ),
+    var history = historySnapshot.data!.docs;
+
+    return Column(
+      children: history.map((doc) {
+        var data = doc.data() as Map<String, dynamic>;
+        return ListTile(
+          leading: Icon(
+            data["status"] == "Present" ? Icons.check_circle : Icons.cancel,
+            color: data["status"] == "Present" ? Colors.green : Colors.red,
+          ),
+          title: Text(doc.id, style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+          subtitle: Text(data["status"], style: GoogleFonts.poppins(color: Colors.black87)),
+        );
+      }).toList(),
+    );
+  },
+),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
