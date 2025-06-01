@@ -10,17 +10,12 @@
 - 🧩 Puzzles and fun interactive activities  
 
 ## 📸 Screenshots
+![App img1](tiny_tots/assets/images/photo.png)
+![App img2](tiny_tots/assets/images/photo2.png)
+<br>
 
-<p float="left">
-  <img src="screenshots/home.png" width="45%" />
-  <img src="screenshots/poems.png" width="45%" />
-</p>
-
-<p float="left">
-  <img src="screenshots/alphabets.png" width="45%" />
-  <img src="screenshots/exercises.png" width="45%" />
-</p>
-
+## 🎬 App Working Video
+[Click Here](tiny_tots/assets/images/Tiny-Tots-Video-Tutorial.mp4) to watch the demo of the App!!!
 
 ## 🛠️ Tech Stack
 - Flutter for cross-platform mobile development  
@@ -28,12 +23,5 @@
 - YouTube API for embedding videos  
 - GitHub and GitHub Desktop for version control  
 
----
-
-## 🚀 How to Run Locally
-
-1. Clone the repo:
-
-```bash
-git clone https://github.com/OmAI-DS/tiny-tots-app.git
-cd tiny-tots-app
+## 🤝 Let's Connect!
+If you’d like to collaborate, give feedback, or just say hi — don’t hesitate to reach out or connect with me on [LinkedIn](https://www.linkedin.com/in/om-more-b802b2281/).
