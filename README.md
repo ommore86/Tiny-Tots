@@ -20,7 +20,8 @@
 ## 🛠️ Tech Stack
 - Flutter for cross-platform mobile development  
 - Firebase Authentication for user signup and login  
-- YouTube API for embedding videos  
+- YouTube API for embedding videos
+- Android Studio for using SDK
 - GitHub and GitHub Desktop for version control  
 
 ## 🤝 Let's Connect!
