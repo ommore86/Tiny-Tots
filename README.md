@@ -9,13 +9,13 @@
 - 👩‍🏫 Separate login/signup for teachers and parents with Firebase Authentication  
 - 🧩 Puzzles and fun interactive activities  
 
+## 🎬 App Working Video
+[Click Here](https://drive.google.com/file/d/1M5BcQ-FlZqv7Oq1xocX1_MMYtnaXtRI3/view?usp=drive_link) to watch the demo of the App!!!
+
 ## 📸 Screenshots
 ![App img1](tiny_tots/assets/images/photo.png)
 ![App img2](tiny_tots/assets/images/photo2.png)
 <br>
-
-## 🎬 App Working Video
-[Click Here](https://drive.google.com/file/d/1M5BcQ-FlZqv7Oq1xocX1_MMYtnaXtRI3/view?usp=drive_link) to watch the demo of the App!!!
 
 ## 🛠️ Tech Stack
 - Flutter for cross-platform mobile development  
