@@ -12,6 +12,10 @@
 ## 🎬 App Working Video
 [Click Here](https://drive.google.com/file/d/1M5BcQ-FlZqv7Oq1xocX1_MMYtnaXtRI3/view?usp=drive_link) to watch the demo of the App!!!
 
+## 🛠️ Installing the app
+1. You can download the folder from the 'APK File Download' folder in the root directory.<br>
+2. Unzip the zip file in the folder, and install the APK!!!
+
 ## 📸 Screenshots
 ![App img1](tiny_tots/assets/images/photo.png)
 ![App img2](tiny_tots/assets/images/photo2.png)
